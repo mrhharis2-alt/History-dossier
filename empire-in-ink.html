@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Empire in Ink — Why Did Japan Go To War?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Shippori+Mincho:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c1712; --ink2:#332a20;
+  --washi:#f4ecd8; --washi2:#e9dcbb; --washi3:#dfd0a4;
+  --gold:#b8892b; --gold2:#8f6a1e; --gold-light:#e3b054;
+  --crimson:#a4172c; --crimson2:#7a1020; --crimson-light:#ff5d70;
+  --line:#c9b998; --muted:#7a6f5a;
+  --void:#0a0908; --void2:#17110a; --mist:#cbb98a;
+  --shadow:0 18px 50px rgba(28,23,18,.25);
+  --serif:"Shippori Mincho",Georgia,serif;
+  --display:"Yuji Syuku","Shippori Mincho",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--ink);color:var(--ink);font-family:var(--serif)}
+button{font:inherit}
+.page{display:none;min-height:100vh}
+.page.active{display:flex}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* ===== shared dark ink-void scene ===== */
+.paper{
+  position:relative;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(227,176,84,.14), transparent 42%),
+    radial-gradient(circle at 85% 88%, rgba(164,23,44,.13), transparent 48%),
+    radial-gradient(circle at 50% 45%, rgba(184,137,43,.05), transparent 60%),
+    linear-gradient(160deg, var(--void2), var(--void));
+}
+.seigaiha{position:absolute;inset:0;opacity:.07;pointer-events:none;background-size:64px 32px;
+  background-image: radial-gradient(circle at 50% 100%, transparent 0 14px, var(--gold-light) 15px 16px, transparent 17px);
+  mask-image:linear-gradient(to bottom, transparent, black 30%, black 80%, transparent);}
+.map-arcs{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.55}
+.map-arcs svg{width:100%;height:100%}
+.map-arcs .drift{animation:mapDrift 60s ease-in-out infinite}
+@keyframes mapDrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-1.2%,.8%) scale(1.03)}}
+.ink-caption{text-shadow:0 0 3px rgba(0,0,0,.9),0 0 14px rgba(0,0,0,.7),0 2px 0 rgba(0,0,0,.6)}
+.hi-gold{color:var(--gold-light)}
+.hi-crim{color:var(--crimson-light)}
+
+/* ===== PAGE 1 : hook ===== */
+.p1{align-items:center;justify-content:center;padding:32px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 20%,#2a2015,#140f0a 70%)}
+.hook{width:min(880px,100%);text-align:center;position:relative;z-index:2}
+.hook-eyebrow{font:700 13px var(--serif);letter-spacing:.08em;color:#c9a24a;margin-bottom:6px}
+.hook h1{font:400 clamp(42px,7vw,80px)/1.05 var(--display);color:#f4ecd8;margin:6px 0 20px;text-shadow:0 4px 18px rgba(0,0,0,.4)}
+.hook p{font-size:18px;line-height:1.7;color:#e6d9b8;max-width:640px;margin:0 auto 26px}
+.stage{position:relative;width:280px;height:280px;margin:0 auto 26px}
+.stage svg{width:100%;height:100%}
+.sun-disc{transform-origin:150px 150px;transition:transform 2.4s ease, opacity 2.4s ease}
+#samurai{transition:opacity 2s ease 1.6s}
+.hook.revealed #samurai{opacity:.14}
+.hook.revealed .sun-disc{transform:scale(1.35)}
+.begin-btn{background:linear-gradient(135deg,var(--crimson),var(--crimson2));color:#f4ecd8;border:1px solid rgba(244,236,216,.35);border-radius:4px;padding:16px 30px;font:700 15px var(--serif);letter-spacing:.03em;cursor:pointer;box-shadow:0 14px 30px rgba(164,23,44,.35);transition:transform .18s ease}
+.begin-btn:hover{transform:translateY(-2px)}
+.begin-btn:focus-visible,button:focus-visible{outline:3px solid #f4c14a;outline-offset:2px}
+
+/* ===== chain pages ===== */
+.chainpage{align-items:flex-start;justify-content:center;padding:28px 20px 60px;position:relative}
+.chain-head{width:min(1080px,100%);margin:0 auto 22px;text-align:center;position:relative;z-index:2}
+.chain-eyebrow{font:700 12px var(--serif);letter-spacing:.1em;color:var(--gold-light)}
+.chain-head h2{font:400 clamp(30px,4.5vw,50px) var(--display);margin:6px 0 10px;color:#f4ecd8}
+.chain-head p{color:var(--mist);max-width:640px;margin:0 auto;line-height:1.6}
+.meter{width:min(560px,100%);margin:20px auto 4px}
+.meter-label{display:flex;justify-content:space-between;font:700 12px var(--serif);letter-spacing:.04em;color:var(--mist);margin-bottom:6px}
+.meter-track{height:10px;border-radius:6px;background:linear-gradient(90deg,#e9dcbb,#e2a25a,#a4172c);position:relative;box-shadow:inset 0 1px 3px rgba(0,0,0,.2)}
+.meter-fill{position:absolute;top:-4px;height:18px;width:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ffdca0,var(--crimson));border:2px solid #fff8ea;transform:translateX(-50%);transition:left .6s cubic-bezier(.2,.8,.3,1.1);box-shadow:0 0 14px rgba(164,23,44,.5)}
+
+.track-wrap{width:min(1200px,100%);position:relative;z-index:2;padding:30px 24px 10px}
+.baseline{position:relative;display:flex;flex-wrap:wrap;gap:0;align-items:flex-end;justify-content:center;padding-bottom:26px}
+.baseline::before{content:'';position:absolute;left:2%;right:2%;bottom:14px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold),transparent);opacity:.6}
+.domino-slot{display:flex;flex-direction:column;align-items:center;width:120px;margin:0 1px 24px;position:relative}
+.connector-arc{width:28px;height:28px;margin-bottom:8px;position:relative;flex-shrink:0}
+.connector-arc svg{width:100%;height:100%;overflow:visible}
+.arc-path{stroke-dasharray:60;stroke-dashoffset:60;stroke:var(--line);transition:stroke-dashoffset .8s ease, stroke .4s ease}
+.arc-badge{opacity:0;transition:opacity .4s ease .3s}
+.connector-arc.lit .arc-path{stroke-dashoffset:0;stroke:url(#arcGrad)}
+.connector-arc.lit .arc-badge{opacity:1;filter:drop-shadow(0 0 4px rgba(227,176,84,.9))}
+.domino{width:64px;height:150px;background:linear-gradient(160deg,#fbf5e4,#e9dcbb);border:2px solid var(--ink2);border-radius:6px;cursor:pointer;transform-origin:bottom center;transition:transform .65s cubic-bezier(.32,1.6,.5,1),box-shadow .3s ease,filter .4s ease;box-shadow:0 10px 20px rgba(0,0,0,.55),0 0 16px rgba(227,176,84,.14);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10px 6px;position:relative}
+.domino .num{font:700 13px var(--display);color:var(--crimson)}
+.domino .icon{width:34px;height:34px}
+.domino .yr{font:700 10px var(--serif);color:var(--muted);letter-spacing:.02em}
+.domino.locked{opacity:.4;cursor:not-allowed;filter:grayscale(.4)}
+.domino.pulse{animation:pulseGlow 1.6s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 10px 20px rgba(0,0,0,.55),0 0 0 rgba(227,176,84,0)}50%{box-shadow:0 10px 20px rgba(0,0,0,.55),0 0 26px rgba(227,176,84,.65)}}
+.domino.fallen{transform:rotateZ(76deg);filter:saturate(.7) brightness(.96)}
+.domino.fallen::after{content:'✓';position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--crimson);color:#f4ecd8;font-size:10px;line-height:16px;text-align:center}
+.slot-label{margin-top:8px;font:500 11px var(--serif);color:var(--mist);text-align:center;max-width:110px;line-height:1.3}
+
+.bridge-domino{width:74px;height:170px}
+.bridge-domino.fallen{transform:rotateZ(0deg) translateY(6px) scale(1.03) rotate(24deg);}
+
+/* card panel */
+.backdrop{position:fixed;inset:0;background:rgba(6,5,4,.72);opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:20}
+.backdrop.show{opacity:1;pointer-events:auto}
+.card{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(560px,92vw);max-height:86vh;overflow:auto;background:var(--washi);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:26px;opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.3,1.15);z-index:21;border-top:5px solid var(--crimson)}
+.card.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pill{font:700 11px var(--serif);letter-spacing:.05em;border:1.5px solid var(--gold2);color:var(--gold2);border-radius:4px;padding:5px 10px}
+.close{border:0;background:var(--washi3);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:19px;color:var(--ink)}
+.card h3{font:400 30px var(--display);margin:14px 0 4px;color:var(--ink)}
+.card .year{font:700 12px var(--serif);color:var(--crimson2);margin-bottom:12px}
+.actionbox{background:#fff8ea;border-left:4px solid var(--gold);padding:14px 16px;border-radius:0 8px 8px 0;line-height:1.65;font-size:14.5px}
+.leadsto{margin-top:12px;padding:13px 16px;border-left:4px solid var(--crimson);background:#fdecec;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.6}
+.leadsto b{color:var(--crimson2)}
+.think{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.think h4{margin:0 0 8px;font-size:14.5px;font-weight:700}
+.opt-grid{display:grid;gap:8px}
+.opt{border:2px solid var(--line);background:#fff;padding:10px 12px;border-radius:8px;cursor:pointer;text-align:left;font-size:13.5px;transition:.15s}
+.opt:hover{border-color:var(--crimson)}
+.opt.selected.wrong{border-color:var(--crimson);background:#fdecec}
+.opt.selected.correct{border-color:#1e8e3e;background:#e5f6ea}
+.feedback{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;background:#eef3e2;border:1px solid #c9d8a8;font-size:13px;line-height:1.5}
+.feedback.show{display:block}
+.nextbtn{margin-top:18px;width:100%;background:linear-gradient(135deg,var(--crimson),var(--crimson2));color:#f4ecd8;border:0;border-radius:8px;padding:13px;font-weight:700;cursor:pointer}
+
+/* recap strip */
+.recap{width:min(1080px,100%);margin:20px auto 0;position:relative;z-index:2}
+.recap-strip{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.recap-item{background:#fff8ea;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:12px;display:flex;align-items:center;gap:8px}
+.recap-item b{color:var(--crimson2)}
+.recap-arrow{color:var(--gold2);font-weight:700}
+.crossbtn{display:block;margin:26px auto 0;background:var(--ink);color:var(--washi);border:0;border-radius:8px;padding:14px 26px;font:700 14px var(--serif);cursor:pointer}
+
+/* torii transition */
+.p-torii{align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2a2015,#140f0a 75%)}
+.torii-wrap{text-align:center;position:relative;z-index:2}
+.torii-wrap svg{width:min(260px,60vw);height:auto}
+.torii-wrap h2{font:400 32px var(--display);color:#f4ecd8;margin:18px 0 8px}
+.torii-wrap p{color:#e6d9b8;max-width:520px;margin:0 auto 22px;line-height:1.6}
+.gate-path{stroke-dasharray:600;stroke-dashoffset:600;animation:drawGate 1.6s ease forwards}
+@keyframes drawGate{to{stroke-dashoffset:0}}
+
+/* ===== final task page ===== */
+.p4{align-items:flex-start;justify-content:center;padding:30px 20px 70px}
+.final-wrap{width:min(980px,100%)}
+.final-wrap h1{font:400 clamp(32px,5vw,54px) var(--display);margin:6px 0 10px;text-align:center;color:#f4ecd8}
+.final-wrap>p.lead{text-align:center;color:var(--mist);max-width:640px;margin:0 auto 26px;line-height:1.6}
+.mode-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+.mode-tab{background:#fff8ea;border:2px solid var(--line);border-radius:20px;padding:9px 16px;font:700 13px var(--serif);cursor:pointer}
+.mode-tab.active{border-color:var(--crimson);background:#fdecec;color:var(--crimson2)}
+.mode-panel{display:none;background:var(--washi);border:1px solid var(--line);border-radius:10px;padding:24px;box-shadow:var(--shadow)}
+.mode-panel.active{display:block}
+.mode-panel h3{font:700 18px var(--serif);margin:0 0 10px}
+.mode-panel textarea{width:100%;min-height:130px;padding:14px;border:2px solid var(--line);border-radius:8px;resize:vertical;background:#fff;font:15px var(--serif)}
+.starter-line{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;line-height:2.2}
+.starter-line input{border:0;border-bottom:2px solid var(--gold2);background:transparent;font:600 14px var(--serif);padding:2px 4px;min-width:120px}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:640px){.match-grid{grid-template-columns:1fr}}
+.match-col h4{font:700 12px var(--serif);letter-spacing:.05em;color:var(--muted);margin:0 0 10px}
+.match-card{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-size:13px;line-height:1.4}
+.match-card.picked{border-color:var(--gold2);background:#fff8ea}
+.match-card.correct{border-color:#4d8a3a;background:#eef3e2;cursor:default}
+.match-card.wrong{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.match-status{margin-top:6px;font-size:12px;color:var(--muted);text-align:center}
+.showmodel{margin-top:14px;background:var(--ink);color:var(--washi);border:0;border-radius:8px;padding:12px 16px;font-weight:700;cursor:pointer}
+.model{display:none;margin-top:12px;padding:14px 16px;border-left:4px solid var(--gold);background:#fff8ea;border-radius:0 8px 8px 0;font-size:14px;line-height:1.6}
+.model.show{display:block}
+.full-recap{margin-top:34px}
+.full-recap h3{text-align:center;font:400 24px var(--display);margin-bottom:14px;color:#f4ecd8}
+
+/* ===== CHAIN 2 : EXPANSION MAP ===== */
+
+.date-banner{background:#0e0c09;border:1px solid rgba(227,176,84,.5);color:var(--gold-light);font:700 12px var(--serif);letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:10px 16px;border-radius:4px;max-width:56vw;box-shadow:0 8px 20px rgba(0,0,0,.4);transition:opacity .25s ease,transform .25s ease}
+.date-banner.pulse-update{animation:bannerFlash .5s ease}
+@keyframes bannerFlash{0%{opacity:.2;transform:translateY(-4px)}100%{opacity:1;transform:translateY(0)}}
+.map-canvas-wrap{position:relative;width:min(1500px,92vw,calc(92vh * 2400 / 1350));aspect-ratio:2400/1350;border-radius:10px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#e9dcbb}
+.map-canvas-wrap svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#arcsLayer{pointer-events:none;overflow:visible}
+.land-neutral{fill:url(#landG);stroke:#4a3a24;stroke-width:1}
+.land-empire{fill:url(#empireG);stroke:#4a3a24;stroke-width:1;opacity:.7}
+.map-label{font-family:"Shippori Mincho",serif;font-size:21px;fill:#3a2c18;opacity:.85;paint-order:stroke;stroke:#efe3c4;stroke-width:3px;stroke-linejoin:round;pointer-events:none}
+.region-label{font-family:"Shippori Mincho",serif;font-size:15px;fill:#5a3a1e;opacity:.8;paint-order:stroke;stroke:#efe3c4;stroke-width:2.5px;stroke-linejoin:round;pointer-events:none;letter-spacing:.02em}
+.zone{transition:fill 1.4s ease,opacity .6s ease}
+.trail-arc{fill:none;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.3,1)}
+.trail-arc.lit{stroke-dashoffset:0}
+.trail-arc.jp{stroke:var(--crimson)}
+.trail-arc.us{stroke:#3a5a8c}
+.trail-arc.league{stroke:#8a8060;stroke-dasharray:6 8;opacity:.75}
+.home-flag{position:absolute;left:36.72%;top:31.15%;transform:translate(-50%,-50%);width:34px;height:34px;z-index:3;pointer-events:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
+.map-marker{position:absolute;transform:translate(-50%,-50%);width:58px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;cursor:pointer;z-index:4;padding:0;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .2s ease}
+.map-marker.visible{opacity:1;pointer-events:auto}
+.map-marker:hover{transform:translate(-50%,-50%) scale(1.08)}
+.medallion{width:52px;height:52px;border-radius:50%;overflow:hidden;border:3px solid var(--gold2);box-shadow:0 6px 16px rgba(0,0,0,.5);position:relative;background:#20180f}
+.medallion img{width:100%;height:100%;object-fit:cover;display:block}
+.medallion.ring-jp{border-color:var(--crimson)}
+.medallion.ring-us{border-color:#3a5a8c}
+.medallion.ring-league{border-color:var(--gold-light)}
+.medallion .num{position:absolute;left:-4px;top:-4px;width:18px;height:18px;border-radius:50%;background:var(--ink);color:var(--gold-light);font:700 10px var(--serif);display:flex;align-items:center;justify-content:center;border:1px solid var(--gold-light)}
+.marker-label{font:700 9.5px var(--serif);letter-spacing:.03em;text-transform:uppercase;color:#fff8ea;background:rgba(14,12,9,.82);padding:2px 6px;border-radius:3px;white-space:nowrap}
+.map-marker.offmap .marker-label{border:1px dashed var(--gold-light);background:rgba(40,32,14,.92);text-transform:none;letter-spacing:.01em}
+.map-marker.offmap .medallion{box-shadow:0 6px 16px rgba(0,0,0,.5),0 0 0 3px rgba(0,0,0,.35)}
+.map-marker.locked .medallion{filter:grayscale(1) brightness(.55);opacity:.55}
+.map-marker.locked{cursor:not-allowed}
+.map-marker.pulse .medallion{animation:pulseGlow 1.6s ease-in-out infinite}
+.map-marker.done .medallion{filter:saturate(.7) brightness(.92)}
+.map-marker.done .medallion::after{content:'✓';position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:var(--crimson);color:#f4ecd8;font-size:10px;line-height:16px;text-align:center;border:1px solid #fff8ea}
+.progress-pips{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.pip{width:9px;height:9px;border-radius:50%;background:var(--washi3);border:1px solid var(--line)}
+.pip.pip-done{background:var(--crimson);border-color:var(--crimson2)}
+
+/* ===== Chain 2 map page: full bleed, draggable, zoomable ===== */
+.mappage{padding:0;height:100vh;max-height:100vh;overflow:hidden;position:relative}
+.mappage .seigaiha{display:none}
+.map-stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:default;background:radial-gradient(circle at 50% 30%,var(--ink2),var(--void) 78%)}
+.map-stage.can-drag{cursor:grab}
+.map-stage.dragging{cursor:grabbing}
+.map-pan{position:absolute;left:0;top:0;will-change:transform}
+.map-zoom{transform-origin:0 0;will-change:transform}
+
+.map-hud{position:fixed;top:16px;left:0;right:0;z-index:8;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:0 16px;pointer-events:none}
+.map-hud>*{pointer-events:auto}
+.map-hud-btns{display:flex;gap:6px}
+.hud-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(227,176,84,.5);background:#0e0c09;color:var(--gold-light);font:700 17px var(--serif);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.4);transition:background .15s ease}
+.hud-btn:hover{background:#241b0f}
+.hud-btn-wide{width:auto;border-radius:20px;padding:0 16px;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase}
+
+.map-intro{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(560px,92vw);max-height:88vh;overflow:auto;background:var(--washi);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:32px;opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.3,1.15);z-index:22;border-top:5px solid var(--gold);text-align:center}
+.map-intro.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.map-intro .chain-eyebrow{color:var(--gold2)}
+.map-intro h2{font:400 32px var(--display);color:var(--ink);margin:8px 0 6px}
+.map-intro p{color:var(--muted);line-height:1.65;margin:10px 0 0}
+.map-intro .meter-label{color:var(--muted)}
+.map-intro .begin-btn{margin-top:22px}
+
+#recap2{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(720px,92vw);max-height:82vh;overflow:auto;background:var(--washi);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:30px;opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.3,1.15);z-index:21;border-top:5px solid var(--gold);text-align:center;margin:0}
+#recap2.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+#recap2 h3{font:400 28px var(--display);color:var(--ink);margin:0 0 14px}
+
+.popup-pips{display:flex;justify-content:center;gap:6px;margin:12px 0 2px}
+
+/* map event popup, styled apart from the chain-1 card so both can exist independently */
+.map-popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(600px,92vw);max-height:88vh;overflow:auto;background:var(--washi);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:26px;opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.3,1.15);z-index:21;border-top:5px solid var(--gold)}
+.map-popup.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.map-photo{display:flex;gap:14px;align-items:center;margin:14px 0;padding:12px;background:#fff8ea;border:1px solid var(--line);border-radius:8px}
+.map-photo img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold2);flex-shrink:0}
+.map-photo-text b{display:block;font-size:13.5px;color:var(--ink2)}
+.map-photo-text span{font-size:11px;color:var(--muted)}
+
+@media(max-width:720px){
+  .domino-slot{width:96px}
+  .domino{width:52px;height:120px}
+  .connector-arc{width:24px}
+  .medallion{width:44px;height:44px}
+  .map-marker{width:48px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 : HOOK ===================== -->
+<section class="page p1 active" id="page1">
+  <div class="map-arcs"></div>
+  <div class="hook" id="hookBox">
+    <div class="hook-eyebrow">Pathlight School · Secondary 3 History · Outbreak of WWII in Asia Pacific</div>
+    <h1 class="ink-caption">Empire in <span class="hi-gold">Ink</span></h1>
+    <div class="stage">
+      <svg viewBox="0 0 300 300">
+        <defs>
+          <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffdca0"/><stop offset="60%" stop-color="#a4172c"/><stop offset="100%" stop-color="#7a1020"/>
+          </radialGradient>
+        </defs>
+        <circle class="sun-disc" cx="150" cy="150" r="70" fill="url(#sunGrad)" opacity="0.92"/>
+        <g id="samurai" opacity="1" fill="none" stroke="#f4ecd8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M150 60 C 130 70 122 95 128 118 C 108 128 96 150 96 178 L 96 230 C 96 240 104 246 114 246 L 186 246 C 196 246 204 240 204 230 L 204 178 C 204 150 192 128 172 118 C 178 95 170 70 150 60 Z"/>
+          <path d="M112 118 L 60 150 M188 118 L 240 150"/>
+          <path d="M96 178 L 40 190 M204 178 L 260 190"/>
+          <circle cx="150" cy="96" r="8"/>
+        </g>
+      </svg>
+    </div>
+    <p>In 1868 Japan tore up centuries of feudal isolation to modernise almost overnight. By 1941 that same drive for strength had pulled the country into a world war. Nothing in this story happens on its own. Every decision knocks over the next one, like a line of falling dominoes.</p>
+    <button class="begin-btn" id="beginBtn">Begin the chain reaction →</button>
+  </div>
+</section>
+
+<!-- ===================== PAGE 2 : CHAIN 1 ===================== -->
+<section class="page chainpage paper" id="page2">
+  <div class="seigaiha"></div>
+  <div class="map-arcs"></div>
+  <div style="width:100%;position:relative;z-index:2">
+    <div class="chain-head">
+      <div class="chain-eyebrow">Chain 1 of 2 · Domestic causes</div>
+      <h2 class="ink-caption">Why did Japan turn to <span class="hi-gold">militarism</span>?</h2>
+      <p>Tap each domino in order. Read what happened, then see how it tips into the next event.</p>
+      <div class="meter">
+        <div class="meter-label"><span>Domestic tension</span><span id="tensionText1">Calm</span></div>
+        <div class="meter-track"><div class="meter-fill" id="meterFill1" style="left:4%"></div></div>
+      </div>
+    </div>
+    <div class="track-wrap"><div class="baseline" id="baseline1"></div></div>
+    <div class="recap" id="recap1" style="display:none">
+      <div class="recap-strip" id="recapStrip1"></div>
+      <button class="crossbtn" id="toBridge">Cross into Chain 2 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TORII TRANSITION ===================== -->
+<section class="page p-torii" id="pageBridge">
+  <div class="map-arcs"></div>
+  <div class="torii-wrap">
+    <svg viewBox="0 0 200 160" fill="none" stroke="#c9a24a" stroke-width="5" stroke-linecap="round">
+      <path class="gate-path" d="M20 150 L20 40 M180 150 L180 40 M10 40 L190 40 M6 20 L194 20 M100 20 L100 150" stroke-dasharray="700" style="stroke-dashoffset:700;animation:drawGate 1.8s ease forwards"/>
+    </svg>
+    <h2 class="ink-caption">A militarist government now needed <span class="hi-crim">raw materials abroad</span></h2>
+    <p>By force, if necessary. Japan looked first towards a resource rich territory just across the sea: Manchuria.</p>
+    <button class="begin-btn" id="toChain2">Enter Chain 2 →</button>
+  </div>
+</section>
+
+<!-- ===================== PAGE 3 : CHAIN 2, NOW AN EXPANSION MAP ===================== -->
+<section class="page mappage paper" id="page3">
+  <div class="map-stage" id="mapStage">
+    <div class="map-pan" id="mapPan">
+      <div class="map-zoom" id="mapZoom">
+      <div class="map-canvas-wrap" id="mapCanvasWrap">
+        <svg viewBox="0 0 2400 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="oceanG" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#cfe0dd"/><stop offset="100%" stop-color="#a9c2bf"/>
+            </linearGradient>
+            <linearGradient id="landG" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e7d9ae"/><stop offset="100%" stop-color="#d4c188"/>
+            </linearGradient>
+            <linearGradient id="empireG" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e7a86a"/><stop offset="100%" stop-color="#a4172c"/>
+            </linearGradient>
+            <linearGradient id="stainG" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e7a86a" stop-opacity=".92"/><stop offset="100%" stop-color="#8f1420" stop-opacity=".92"/>
+            </linearGradient>
+            <filter id="mapGrain" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="n"/>
+              <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            </filter>
+          </defs>
+          <rect width="2400" height="1350" fill="url(#oceanG)"/>
+          <g transform="translate(0,150)">
+          <path d="M634.6,230.5 L635.2,228.0 L643.2,221.1 L661.1,220.6 L663.6,219.6 L667.4,214.7 L672.1,223.1 L685.6,240.1 L687.1,244.2 L688.2,250.2 L686.7,258.1 L686.9,263.2 L687.9,264.0 L690.1,263.2 L687.2,273.6 L683.3,279.6 L678.9,281.1 L670.0,281.1 L668.3,282.7 L668.8,285.5 L662.2,284.3 L661.1,282.6 L655.0,283.9 L653.6,285.1 L655.5,287.1 L655.0,288.3 L653.4,288.9 L651.4,286.0 L649.1,286.4 L648.9,287.9 L650.5,290.1 L647.6,293.1 L644.8,291.6 L646.4,289.4 L646.2,287.6 L642.1,290.4 L639.6,293.6 L636.9,292.2 L632.7,296.0 L631.7,292.6 L627.6,289.2 L628.3,288.3 L632.5,288.7 L631.6,287.6 L633.8,286.3 L630.6,286.4 L628.1,280.1 L631.9,273.6 L634.2,272.2 L631.8,271.6 L631.9,270.8 L636.2,268.5 L636.8,266.6 L634.9,265.6 L635.5,263.4 L632.8,261.0 L633.1,256.0 L631.8,251.1 L630.0,251.9 L626.1,251.1 L625.7,249.6 L626.7,247.7 L631.8,245.1 L637.4,246.3 L639.1,248.6 L641.1,246.4 L639.0,245.7 L636.7,241.6 L637.6,239.7 L634.9,236.8 L635.0,234.9 L633.3,231.8 L634.6,230.5 Z M628.8,316.5 L627.2,316.7 L625.8,314.9 L629.0,312.1 L635.8,310.4 L639.6,311.0 L640.2,312.4 L639.1,314.3 L633.6,316.3 L628.8,316.5 Z M674.4,286.8 L672.6,288.0 L669.6,285.6 L674.0,282.8 L674.4,286.8 Z M661.6,286.7 L661.4,288.5 L660.1,288.6 L659.3,287.4 L658.0,288.0 L657.2,285.4 L658.8,284.5 L661.1,285.3 L661.6,286.7 Z M627.1,294.9 L625.8,295.2 L624.7,294.4 L625.0,293.5 L627.3,291.3 L629.1,291.6 L629.8,292.5 L627.1,294.9 Z M632.5,231.4 L632.4,233.9 L631.3,233.8 L629.6,230.7 L630.4,229.8 L632.5,231.4 Z M625.9,288.1 L624.8,288.4 L622.8,285.5 L624.1,284.6 L625.8,286.2 L625.9,288.1 Z M630.5,254.9 L630.3,256.1 L629.0,255.3 L628.7,252.6 L630.5,254.9 Z M715.4,236.3 L714.5,236.8 L713.4,235.7 L715.2,234.8 L715.4,236.3 Z M636.8,295.4 L637.2,296.3 L635.6,296.1 L634.9,294.5 L636.8,295.4 Z" class="land-empire" data-name="South Korea"/>
+          <path d="M667.4,214.7 L663.6,219.6 L661.1,220.6 L643.2,221.1 L635.2,228.0 L634.6,230.5 L629.6,228.7 L624.8,231.3 L623.6,228.9 L621.5,228.8 L618.3,226.7 L612.3,231.5 L610.5,231.6 L609.6,229.4 L603.6,227.7 L608.4,225.3 L597.9,224.0 L601.4,222.0 L601.5,220.0 L605.0,215.9 L609.6,213.9 L614.2,213.5 L611.8,212.3 L609.4,212.4 L607.0,211.2 L606.7,210.0 L611.5,202.1 L610.6,197.6 L605.7,196.4 L599.5,193.2 L598.7,195.2 L596.9,195.9 L595.4,192.6 L591.5,190.4 L592.2,186.7 L601.7,180.0 L603.7,179.9 L605.1,178.3 L611.6,176.2 L617.5,172.3 L622.4,171.6 L631.9,163.1 L634.0,157.7 L636.7,156.1 L640.7,155.3 L644.9,159.8 L654.5,161.5 L660.6,161.3 L663.2,162.5 L665.8,158.4 L661.0,152.9 L661.2,151.2 L677.8,150.2 L682.9,146.8 L685.2,143.1 L687.2,142.7 L689.1,143.7 L692.4,142.5 L693.9,136.3 L696.2,132.1 L700.5,132.9 L702.6,134.1 L703.7,138.0 L707.5,140.2 L711.1,145.2 L706.7,145.3 L702.6,147.5 L693.5,156.4 L692.2,158.6 L693.7,164.1 L692.6,172.5 L685.7,175.0 L681.3,179.4 L673.6,182.7 L670.0,186.2 L666.1,188.0 L659.7,188.8 L657.9,190.6 L652.2,192.8 L651.5,194.4 L651.9,198.8 L651.4,200.4 L649.5,200.5 L649.0,203.6 L656.3,206.0 L667.4,214.7 Z M602.0,197.4 L600.9,198.0 L600.9,197.0 L602.5,196.1 L602.0,197.4 Z" class="land-empire" data-name="North Korea"/>
+          <path d="M528.5,516.6 L526.4,521.1 L525.3,529.7 L523.4,529.1 L520.4,521.6 L515.4,518.0 L511.0,507.7 L512.1,501.9 L511.9,497.1 L521.3,481.5 L529.1,471.1 L535.2,468.7 L536.8,467.0 L539.5,466.5 L545.4,470.6 L545.8,472.2 L543.8,475.0 L543.9,480.5 L539.9,489.6 L535.8,506.2 L533.9,510.1 L528.5,516.6 Z M479.4,480.7 L479.9,482.7 L477.3,482.3 L477.1,481.6 L479.4,480.7 Z" class="land-empire" data-name="Taiwan"/>
+          <path d="M530.2,592.2 L544.3,598.2 L547.9,597.6 L549.9,594.6 L552.2,595.1 L553.1,597.7 L550.6,602.6 L550.0,610.1 L551.6,614.4 L554.5,616.9 L554.9,619.3 L557.0,620.3 L549.7,638.0 L543.2,640.0 L539.5,642.8 L538.9,644.8 L539.8,647.7 L535.7,654.3 L541.4,665.3 L540.1,666.4 L540.1,668.3 L542.8,676.1 L545.5,678.9 L551.2,680.6 L552.6,679.3 L550.9,676.5 L556.4,673.2 L559.0,673.3 L564.8,675.7 L567.4,680.0 L567.2,683.2 L568.0,684.0 L570.4,684.0 L571.6,682.3 L571.8,680.4 L570.9,679.7 L572.1,678.1 L574.2,679.9 L581.4,682.3 L582.2,683.0 L581.3,684.5 L577.5,684.8 L576.4,685.9 L581.5,693.0 L580.9,696.0 L587.6,697.4 L587.5,702.1 L586.0,706.3 L582.6,704.0 L583.4,699.2 L577.9,699.8 L571.9,697.3 L571.6,694.0 L569.7,690.5 L563.5,686.5 L558.4,681.0 L556.3,680.6 L556.0,681.4 L556.8,685.7 L559.8,690.7 L559.9,693.3 L558.5,694.5 L554.3,688.3 L548.5,683.2 L543.0,680.4 L537.8,682.2 L536.7,684.7 L534.8,685.9 L530.1,685.3 L527.0,683.7 L525.3,681.4 L523.2,681.1 L521.5,682.9 L521.1,675.7 L526.8,669.9 L527.2,667.1 L526.2,665.7 L522.8,664.6 L520.4,662.6 L519.8,664.8 L520.5,670.1 L519.9,670.9 L517.7,670.7 L514.2,664.3 L511.0,663.2 L508.2,652.2 L507.4,644.6 L505.1,641.4 L505.1,636.7 L506.2,635.3 L512.4,640.6 L515.8,640.3 L516.4,639.4 L516.8,637.3 L515.2,629.3 L517.1,623.5 L517.5,615.5 L516.2,610.6 L520.7,594.2 L524.8,592.4 L530.2,592.2 Z M622.8,767.5 L624.3,768.7 L626.3,768.4 L626.6,772.1 L628.4,774.5 L628.7,776.5 L625.3,781.2 L629.5,783.3 L629.8,786.3 L631.3,788.6 L630.9,795.6 L633.4,798.5 L633.6,806.6 L630.9,811.1 L626.3,814.1 L627.2,816.3 L626.2,824.3 L623.5,814.3 L619.3,805.0 L616.8,806.4 L615.9,809.3 L611.3,815.2 L611.0,817.2 L614.9,821.4 L616.4,825.9 L616.4,830.6 L612.4,836.5 L610.3,837.8 L608.3,834.8 L608.8,829.6 L608.1,828.9 L604.4,832.6 L602.4,832.5 L588.9,825.8 L586.4,822.6 L584.6,811.4 L588.5,806.3 L588.8,803.8 L584.3,798.8 L578.6,795.9 L575.3,796.1 L573.4,803.6 L569.4,801.3 L567.9,798.1 L565.8,801.0 L563.1,801.3 L562.1,797.7 L560.6,796.7 L558.8,796.9 L556.1,799.3 L549.9,812.3 L549.0,812.9 L546.5,811.9 L545.4,809.9 L545.7,807.6 L548.1,804.5 L549.7,796.0 L551.8,793.5 L553.5,791.9 L564.4,789.5 L566.0,788.3 L566.0,785.7 L567.8,783.4 L572.5,781.7 L574.2,779.2 L578.9,780.7 L582.1,784.3 L582.6,788.9 L580.2,791.4 L581.1,791.5 L588.6,788.1 L592.5,781.1 L596.6,782.6 L598.7,781.8 L600.1,775.0 L601.3,774.1 L606.4,776.1 L607.7,773.1 L613.2,773.3 L613.8,770.9 L611.6,761.0 L612.7,759.3 L620.3,763.9 L622.8,767.5 Z M568.5,772.4 L565.9,772.5 L563.5,767.6 L557.8,764.5 L554.9,760.5 L554.7,758.1 L556.1,755.4 L560.6,754.9 L563.3,753.1 L562.6,745.2 L565.3,741.5 L565.7,738.0 L570.9,736.0 L575.7,737.3 L576.7,740.0 L569.1,757.3 L568.9,762.1 L572.1,768.4 L570.4,771.3 L568.5,772.4 Z M608.3,707.0 L609.6,708.6 L609.8,710.9 L613.9,713.4 L612.4,717.9 L612.5,721.3 L615.3,729.8 L614.6,731.4 L617.1,732.7 L617.7,734.9 L615.6,733.4 L608.2,733.1 L602.7,726.8 L602.2,725.3 L603.7,721.4 L601.6,721.2 L597.7,716.6 L593.3,714.1 L591.1,709.4 L590.5,706.2 L595.6,707.1 L606.6,706.2 L608.3,707.0 Z M458.7,784.2 L457.0,785.5 L457.1,783.8 L459.4,779.0 L469.5,769.0 L472.1,768.5 L473.9,767.0 L491.0,748.0 L494.8,745.7 L496.5,741.8 L495.5,738.8 L496.3,736.3 L500.0,729.3 L501.0,729.9 L500.5,736.7 L503.5,745.3 L500.8,747.6 L497.5,748.5 L494.2,753.6 L486.5,756.3 L486.3,759.1 L479.9,768.8 L474.2,771.7 L471.5,775.9 L463.6,780.3 L462.6,782.3 L458.7,784.2 Z M556.5,724.2 L558.7,725.2 L563.0,724.6 L564.7,725.9 L564.0,727.5 L569.0,725.7 L568.3,730.4 L566.3,733.7 L562.3,736.0 L561.7,739.2 L557.0,741.7 L550.9,743.0 L546.3,746.3 L546.2,740.4 L548.1,734.0 L549.1,723.0 L545.1,720.9 L545.6,719.7 L547.7,719.0 L556.5,724.2 Z M522.7,689.1 L527.9,688.9 L530.6,690.9 L532.1,690.0 L538.2,695.6 L537.3,699.4 L538.5,704.9 L535.7,711.3 L534.4,711.3 L532.8,712.9 L530.5,712.2 L526.8,707.3 L526.4,704.8 L524.1,702.1 L523.8,698.7 L522.3,695.6 L519.0,693.2 L518.0,690.7 L515.8,690.3 L517.0,688.4 L522.7,689.1 Z M595.7,729.4 L597.1,730.0 L600.4,728.3 L602.5,728.8 L604.3,731.9 L604.0,739.9 L606.9,742.7 L608.8,748.9 L608.6,749.7 L606.6,749.6 L606.5,751.1 L603.5,747.8 L604.3,754.1 L599.6,751.5 L599.8,748.5 L598.8,746.4 L600.0,741.8 L598.8,738.1 L597.4,736.6 L593.3,737.3 L590.7,726.7 L591.1,725.8 L592.0,726.1 L595.7,729.4 Z M573.0,765.1 L572.3,765.6 L572.0,764.4 L573.7,756.8 L573.3,755.3 L579.5,745.8 L583.6,736.5 L584.3,732.3 L585.6,730.7 L585.9,743.7 L585.0,747.2 L579.3,752.3 L575.4,762.5 L573.0,765.1 Z M596.1,758.7 L591.7,761.7 L587.2,762.3 L583.7,761.8 L581.5,758.2 L588.2,752.2 L591.2,751.7 L595.8,754.2 L596.1,758.7 Z M579.6,711.6 L583.2,713.8 L585.7,717.6 L585.8,721.7 L582.0,718.6 L579.7,717.9 L579.9,716.9 L575.0,712.9 L569.0,718.4 L571.1,709.5 L570.5,706.0 L576.6,708.6 L579.6,711.6 Z M591.6,686.2 L591.1,687.4 L589.6,687.0 L588.2,688.1 L585.6,685.6 L587.2,683.2 L587.2,679.6 L589.1,677.8 L592.8,681.7 L592.5,685.3 L591.6,686.2 Z M548.9,822.1 L546.4,822.3 L543.6,818.6 L544.0,817.7 L548.3,816.2 L552.6,818.1 L553.3,818.8 L548.9,822.1 Z M511.3,713.8 L512.4,714.1 L513.7,712.8 L515.9,715.5 L515.4,716.7 L509.6,716.8 L506.9,713.2 L507.3,711.3 L511.3,713.8 Z M545.6,687.9 L547.1,687.8 L549.3,689.4 L549.5,691.2 L547.3,694.2 L543.9,691.9 L544.6,687.4 L545.6,687.9 Z M616.8,756.3 L616.5,756.9 L613.1,752.5 L613.7,748.9 L616.4,746.4 L616.8,756.3 Z" class="land-neutral" data-name="Philippines"/>
+          <path d="M134.4,560.1 L134.7,561.4 L138.1,558.8 L141.9,562.7 L142.3,564.4 L139.6,570.6 L140.0,572.7 L141.8,574.5 L143.9,575.5 L150.3,573.4 L154.9,574.6 L154.7,578.7 L156.3,585.3 L154.1,592.1 L151.8,595.4 L153.5,598.4 L153.7,601.1 L149.2,611.6 L150.1,612.4 L152.9,613.6 L154.1,613.2 L163.9,605.9 L165.6,603.1 L168.8,602.2 L171.7,599.8 L180.2,604.4 L182.3,607.2 L185.0,604.8 L189.6,603.2 L191.5,599.6 L194.0,598.0 L193.4,596.7 L194.1,596.1 L197.9,595.9 L203.6,597.8 L206.6,597.8 L215.6,609.5 L221.5,613.9 L222.9,617.0 L221.6,624.8 L221.7,629.3 L223.0,632.7 L227.3,638.5 L234.1,641.7 L233.9,644.7 L238.5,648.0 L238.0,651.2 L235.7,655.5 L236.7,661.7 L235.4,669.2 L227.8,675.0 L226.5,674.4 L225.8,672.3 L222.2,671.2 L207.2,672.5 L200.0,671.3 L192.4,673.0 L187.0,676.7 L183.6,682.2 L180.1,685.7 L180.1,687.1 L175.8,687.9 L176.1,692.7 L178.5,697.8 L179.2,704.3 L184.1,708.9 L183.1,712.2 L183.7,715.3 L187.4,722.5 L182.2,714.2 L181.0,713.2 L180.0,714.9 L176.3,712.2 L174.7,709.5 L174.1,710.7 L170.5,706.9 L166.7,704.9 L164.6,704.0 L159.3,705.3 L152.6,704.3 L150.1,705.3 L149.0,704.6 L148.4,703.5 L150.2,690.0 L149.2,689.4 L143.5,687.4 L142.2,688.4 L136.5,689.0 L132.4,691.4 L131.9,693.5 L133.8,697.3 L131.4,704.0 L131.9,713.8 L125.0,727.1 L122.4,737.9 L116.3,748.7 L116.9,751.4 L116.2,759.7 L118.6,765.8 L118.0,768.6 L120.6,769.6 L126.9,767.7 L129.0,768.1 L131.9,781.3 L134.5,784.4 L135.2,782.9 L137.3,787.4 L140.6,803.0 L142.4,807.0 L140.4,806.0 L139.3,801.1 L137.4,800.9 L138.1,797.8 L136.9,796.7 L135.1,797.6 L135.1,800.0 L140.1,807.8 L143.1,808.0 L151.3,813.9 L156.6,813.1 L160.3,813.9 L166.0,821.2 L171.7,825.6 L170.9,828.4 L168.6,830.6 L167.4,833.5 L163.7,834.4 L161.4,831.9 L155.8,834.2 L153.1,837.0 L150.6,834.5 L152.4,831.0 L152.0,825.6 L148.6,825.6 L146.3,821.5 L144.0,821.7 L138.6,819.8 L137.0,817.3 L135.4,817.5 L134.3,821.8 L129.6,816.0 L126.3,813.6 L126.8,809.3 L123.6,807.2 L124.5,804.6 L121.4,805.0 L120.0,804.3 L118.2,799.6 L116.7,797.8 L114.7,797.8 L114.2,794.6 L109.2,791.3 L107.6,787.6 L105.3,786.0 L103.8,786.5 L102.3,789.1 L101.1,788.9 L98.8,784.5 L98.9,778.0 L100.5,774.2 L101.3,768.1 L107.6,751.1 L108.8,746.6 L108.6,742.2 L116.8,733.9 L124.8,721.1 L121.9,713.4 L120.9,706.6 L117.4,703.0 L115.5,697.5 L115.2,696.2 L116.5,693.7 L115.8,684.6 L112.0,678.3 L105.1,672.5 L99.0,663.9 L98.2,660.8 L97.9,656.5 L104.8,653.4 L105.5,640.6 L109.8,638.1 L111.1,634.9 L110.1,633.6 L106.8,635.3 L103.4,627.7 L102.6,623.1 L88.8,607.6 L89.4,605.0 L87.4,598.3 L85.4,598.2 L84.0,597.0 L82.5,594.0 L85.2,594.4 L89.5,592.7 L88.9,585.0 L90.6,582.4 L90.9,576.2 L94.2,572.6 L94.6,570.8 L101.3,571.9 L111.6,570.3 L114.6,564.2 L119.6,564.5 L122.4,563.2 L121.9,559.2 L126.8,559.9 L130.0,558.0 L134.4,560.1 Z M102.1,794.3 L101.9,795.7 L99.9,796.7 L99.3,793.8 L100.4,789.3 L102.5,790.8 L102.1,794.3 Z M133.4,762.5 L133.1,764.9 L131.4,765.6 L130.9,763.0 L133.4,762.5 Z M177.9,717.2 L175.5,717.3 L175.0,714.1 L177.9,717.2 Z M125.7,820.3 L124.7,818.9 L125.5,816.7 L126.4,819.4 L125.7,820.3 Z M181.3,723.1 L180.9,725.1 L179.9,724.2 L180.5,722.8 L181.3,723.1 Z M105.5,793.7 L104.3,790.4 L105.7,791.4 L105.5,793.7 Z M114.7,800.2 L115.2,802.4 L113.9,801.0 L113.9,799.5 L114.7,800.2 Z" class="land-neutral" data-name="Thailand"/>
+          <path d="M134.4,560.1 L130.0,558.0 L126.8,559.9 L121.9,559.2 L122.4,563.2 L119.6,564.5 L114.6,564.2 L111.6,570.3 L101.3,571.9 L94.6,570.8 L94.2,572.6 L90.9,576.2 L90.6,582.4 L88.9,585.0 L89.5,592.7 L85.2,594.4 L82.5,594.0 L84.0,597.0 L85.4,598.2 L87.4,598.3 L89.4,605.0 L88.8,607.6 L102.6,623.1 L103.4,627.7 L106.8,635.3 L110.1,633.6 L111.1,634.9 L109.8,638.1 L105.5,640.6 L104.8,653.4 L97.9,656.5 L98.2,660.8 L99.0,663.9 L105.1,672.5 L112.0,678.3 L115.8,684.6 L116.5,693.7 L115.2,696.2 L115.5,697.5 L117.4,703.0 L120.9,706.6 L121.9,713.4 L124.8,721.1 L116.8,733.9 L108.6,742.2 L108.8,746.6 L107.6,751.1 L105.0,754.1 L103.7,751.3 L104.2,748.1 L103.1,742.0 L107.1,736.1 L107.2,733.3 L108.4,731.3 L108.3,724.7 L110.9,722.3 L109.5,721.1 L107.4,722.3 L106.3,721.9 L107.5,712.7 L105.7,712.4 L107.1,710.4 L106.1,708.7 L106.9,704.5 L105.2,695.1 L99.0,684.3 L98.1,679.6 L97.2,685.9 L96.4,684.7 L96.2,676.2 L92.6,666.9 L93.0,666.1 L94.7,666.9 L93.1,664.8 L91.9,665.3 L90.8,663.0 L88.9,643.9 L86.5,641.1 L87.6,636.7 L87.4,632.9 L89.2,630.8 L82.6,631.6 L79.5,624.7 L79.2,620.8 L72.7,615.1 L73.8,616.9 L72.7,618.8 L73.7,622.1 L71.0,628.1 L68.3,630.9 L64.7,632.0 L61.9,630.3 L61.3,627.1 L60.2,627.0 L61.1,630.8 L62.7,633.1 L57.4,635.1 L56.8,636.7 L52.1,638.3 L50.6,641.9 L45.1,646.7 L43.4,646.1 L44.3,639.7 L41.1,644.8 L36.7,644.9 L35.7,638.1 L33.9,642.1 L31.3,643.3 L32.1,631.9 L31.4,635.2 L27.2,639.7 L24.5,641.4 L23.1,641.2 L24.0,631.7 L25.5,629.4 L27.8,620.1 L29.5,616.8 L30.0,611.9 L27.0,600.0 L22.1,590.0 L23.5,589.8 L20.2,586.9 L19.7,579.5 L17.8,582.1 L18.3,585.0 L17.5,586.8 L13.3,584.4 L9.3,577.9 L10.9,577.3 L13.7,579.9 L15.6,580.4 L18.2,578.7 L18.8,576.6 L11.5,570.3 L13.3,567.7 L11.0,567.7 L7.7,565.3 L4.7,564.7 L3.0,565.3 L3.8,568.0 L3.6,568.8 L2.4,568.7 L0.0,564.6 L1.8,562.6 L0.3,562.5 L1.3,558.9 L0.7,558.4 L-2.2,563.2 L-3.9,562.0 L-2.1,559.6 L-2.8,558.2 L-5.5,555.4 L-5.2,560.5 L-12.8,551.1 L-15.5,541.6 L-12.6,538.9 L-7.6,542.1 L-7.0,541.4 L-8.0,528.7 L-5.9,525.8 L-2.7,528.1 L-0.7,528.2 L0.8,524.8 L2.9,524.0 L1.5,514.8 L3.1,511.2 L3.1,508.8 L5.8,508.9 L6.6,507.8 L7.4,503.0 L7.8,496.6 L6.2,489.4 L9.3,491.1 L12.9,490.4 L21.3,492.9 L24.4,484.5 L29.9,476.1 L32.2,470.8 L31.6,469.1 L29.3,467.6 L29.8,465.7 L31.5,463.0 L33.7,461.9 L36.7,458.5 L38.0,454.5 L40.2,452.1 L38.7,446.3 L40.2,441.6 L46.5,438.6 L54.8,433.1 L57.8,429.9 L60.2,429.0 L70.4,427.7 L73.2,430.6 L77.4,431.8 L73.6,425.7 L73.1,422.9 L74.8,420.8 L81.8,416.3 L81.6,411.0 L85.6,405.5 L86.8,405.3 L88.6,406.2 L90.0,408.4 L92.2,408.4 L96.2,412.4 L100.0,423.6 L101.0,423.8 L102.9,421.6 L106.6,423.2 L108.3,439.7 L107.3,449.3 L105.0,451.5 L106.7,455.4 L103.1,456.8 L99.9,461.0 L97.0,460.9 L94.5,466.2 L92.8,467.2 L90.9,466.9 L89.0,471.1 L89.4,474.2 L86.5,475.9 L85.5,481.3 L88.0,483.4 L88.8,486.2 L86.1,492.2 L88.4,492.5 L94.7,489.3 L98.3,488.5 L103.8,488.4 L105.3,489.2 L110.1,488.3 L107.1,492.4 L110.0,497.7 L109.4,499.6 L111.0,502.3 L110.6,505.8 L121.1,508.1 L122.8,510.2 L120.5,512.7 L119.6,518.9 L117.1,523.0 L116.8,525.9 L130.5,527.8 L131.0,532.9 L133.9,534.7 L134.3,537.5 L136.1,538.4 L138.7,537.7 L143.5,538.3 L147.8,534.8 L152.4,532.9 L153.4,533.3 L153.7,536.2 L152.5,538.3 L146.4,541.3 L142.2,547.3 L142.4,549.4 L143.8,549.8 L138.2,551.0 L136.8,552.3 L134.4,560.1 Z M13.5,574.4 L17.8,576.8 L17.0,578.6 L14.3,578.8 L12.2,575.6 L13.5,574.4 Z M102.2,705.7 L103.2,706.2 L103.0,708.0 L101.5,710.3 L100.3,710.6 L100.2,704.2 L102.2,705.7 Z M104.8,721.8 L104.3,725.7 L102.5,725.1 L101.4,720.9 L104.2,720.7 L104.8,721.8 Z M27.9,642.5 L26.6,644.4 L26.2,641.6 L30.2,637.6 L29.5,641.1 L27.9,642.5 Z M86.3,636.7 L85.6,637.0 L84.5,635.7 L84.3,632.8 L85.7,632.0 L86.8,633.4 L86.3,636.7 Z M13.0,590.9 L9.2,587.4 L14.1,587.4 L13.0,590.9 Z M98.3,736.7 L99.9,740.0 L99.5,740.8 L97.3,737.8 L95.9,738.0 L97.5,736.2 L98.3,736.7 Z M104.1,718.8 L103.3,718.9 L103.1,715.4 L105.8,717.8 L104.1,718.8 Z M98.5,726.8 L97.9,726.9 L98.1,725.1 L100.0,721.1 L99.7,724.6 L98.5,726.8 Z M100.3,696.2 L100.2,699.3 L99.2,697.8 L99.1,694.6 L100.3,696.2 Z M9.3,568.1 L9.7,570.7 L7.9,568.3 L7.8,567.0 L9.3,568.1 Z M96.9,714.1 L95.0,712.6 L95.7,711.5 L96.7,711.7 L96.9,714.1 Z M0.2,567.5 L0.4,569.3 L-0.5,568.5 L-1.6,564.4 L0.2,567.5 Z M97.8,756.0 L96.6,757.0 L97.0,755.2 L99.8,753.7 L97.8,756.0 Z M95.8,722.8 L95.9,723.8 L94.7,722.7 L94.5,719.6 L95.8,722.8 Z M95.6,709.6 L94.4,711.7 L93.2,710.5 L95.6,709.6 Z M104.6,736.6 L103.3,736.2 L104.3,734.2 L104.6,736.6 Z M34.1,644.9 L32.7,644.8 L34.5,642.8 L34.1,644.9 Z" class="land-neutral" data-name="Myanmar"/>
+          <path d="M463.7,864.7 L454.7,861.6 L443.7,860.9 L441.8,862.1 L438.4,861.1 L434.4,862.4 L430.9,861.6 L427.9,864.3 L425.8,869.1 L425.8,878.4 L423.7,886.1 L420.9,886.9 L419.8,886.3 L416.7,889.8 L416.6,893.7 L418.5,895.8 L411.1,900.9 L410.5,902.6 L411.6,906.9 L409.5,908.5 L408.2,912.9 L405.9,916.0 L403.5,915.1 L394.4,916.3 L389.1,920.1 L387.0,918.7 L377.5,916.3 L376.3,913.8 L367.5,914.0 L362.0,916.2 L360.0,921.8 L357.0,922.4 L354.9,924.3 L348.7,924.6 L341.5,923.6 L330.3,927.1 L315.8,914.7 L314.2,912.9 L313.9,909.9 L312.2,908.5 L313.8,905.1 L315.0,907.8 L318.2,910.1 L322.9,911.3 L327.3,910.9 L333.5,914.2 L337.6,914.5 L341.5,917.0 L343.8,917.1 L340.7,915.3 L340.2,914.0 L342.5,910.6 L342.8,907.5 L344.4,904.5 L344.7,903.0 L343.3,900.1 L344.2,897.4 L346.3,898.8 L348.0,898.5 L348.0,893.7 L351.4,890.2 L372.4,885.5 L378.2,882.9 L385.8,872.8 L394.8,863.3 L396.5,857.1 L397.4,856.7 L400.5,858.9 L402.3,863.0 L404.1,863.1 L407.7,867.5 L410.9,864.7 L412.1,860.5 L410.3,854.4 L415.6,850.9 L415.6,854.9 L417.1,860.6 L421.1,861.0 L419.4,853.8 L417.7,850.9 L422.2,850.3 L425.6,847.3 L426.1,845.4 L423.9,844.3 L423.0,841.3 L426.5,837.7 L426.9,838.7 L429.1,839.0 L431.6,837.5 L435.1,832.4 L436.6,827.7 L443.3,820.3 L448.6,811.5 L449.7,812.2 L450.0,814.6 L448.8,818.8 L451.2,817.7 L455.3,811.9 L457.6,812.8 L458.4,817.4 L465.0,821.3 L466.0,825.1 L464.5,826.5 L465.0,830.2 L462.3,832.4 L468.3,831.3 L471.8,829.2 L473.9,832.8 L470.5,834.2 L471.2,835.7 L476.4,833.6 L478.4,833.8 L482.3,836.1 L482.9,837.9 L489.8,841.0 L493.9,840.9 L495.4,842.2 L495.3,845.3 L493.1,847.2 L484.4,849.7 L478.9,848.7 L476.6,849.3 L475.2,852.3 L482.9,859.2 L482.0,860.8 L471.9,863.2 L466.0,861.5 L463.7,864.7 Z M134.3,821.8 L135.4,817.5 L137.0,817.3 L138.6,819.8 L144.0,821.7 L146.3,821.5 L148.6,825.6 L152.0,825.6 L152.4,831.0 L150.6,834.5 L153.1,837.0 L155.8,834.2 L161.4,831.9 L163.7,834.4 L165.9,834.4 L170.9,828.4 L171.7,825.6 L175.0,826.4 L176.2,826.9 L179.9,832.8 L190.5,841.4 L196.5,851.9 L197.2,855.3 L197.5,860.5 L195.5,872.3 L197.2,877.0 L197.0,888.1 L198.8,891.0 L204.0,894.7 L211.7,910.9 L213.0,915.5 L212.3,917.2 L210.9,917.6 L209.7,916.7 L207.2,912.8 L207.4,915.9 L201.8,916.0 L197.7,918.3 L195.4,914.2 L183.5,908.4 L180.2,904.9 L172.6,901.0 L165.7,894.8 L160.7,892.8 L156.5,889.0 L157.6,886.6 L156.6,882.0 L145.6,868.6 L147.1,867.5 L143.7,860.9 L143.7,855.6 L138.7,838.0 L138.6,830.5 L134.3,821.8 Z M455.5,808.1 L454.4,809.1 L454.0,806.4 L455.6,805.0 L457.8,804.7 L457.9,807.2 L455.5,808.1 Z M129.2,821.4 L130.5,823.4 L127.2,825.2 L125.4,822.3 L127.3,822.5 L129.2,821.4 Z M347.0,897.8 L345.5,897.4 L345.9,891.2 L346.8,892.3 L347.0,897.8 Z M137.5,843.5 L135.7,843.7 L135.9,840.6 L136.7,840.2 L138.5,841.3 L137.5,843.5 Z" class="land-neutral" data-name="Malaysia"/>
+          <path d="M207.0,918.3 L204.1,919.5 L200.9,918.4 L202.0,916.5 L204.1,916.1 L207.5,917.6 L207.0,918.3 Z" class="land-neutral" data-name="Singapore"/>
+          <path d="M415.6,850.9 L410.3,854.4 L412.1,860.5 L410.9,864.7 L407.7,867.5 L404.1,863.1 L402.3,863.0 L400.5,858.9 L397.4,856.7 L404.2,855.5 L415.0,848.6 L416.0,848.7 L415.6,850.9 Z M417.7,850.9 L420.1,856.0 L421.3,860.7 L420.6,861.3 L417.1,860.6 L415.6,854.9 L415.6,850.9 L417.7,850.9 Z" class="land-neutral" data-name="Brunei"/>
+          <path d="M282.5,537.6 L278.5,534.8 L270.8,535.7 L269.3,533.8 L265.3,532.2 L263.6,529.7 L257.8,528.7 L257.6,523.7 L255.4,520.8 L256.3,517.5 L258.5,516.3 L260.0,513.6 L255.5,511.2 L250.5,512.1 L248.1,510.0 L242.3,510.9 L236.8,508.1 L235.7,506.0 L231.6,502.9 L223.1,507.5 L222.6,511.1 L220.5,512.8 L217.5,513.1 L214.6,515.0 L213.2,514.9 L211.6,513.0 L210.2,513.2 L208.6,514.1 L206.4,518.1 L200.4,513.5 L198.0,517.2 L194.4,513.9 L191.3,518.1 L188.8,519.8 L185.5,517.2 L178.7,514.1 L172.2,521.1 L170.3,520.0 L166.8,521.0 L165.3,519.1 L164.3,519.1 L160.8,523.5 L162.3,528.5 L165.0,532.5 L164.6,541.2 L166.1,542.7 L164.7,544.2 L161.2,542.7 L155.6,543.4 L154.3,539.5 L154.7,537.3 L153.6,536.5 L153.4,533.3 L152.4,532.9 L147.8,534.8 L143.5,538.3 L134.9,538.1 L133.8,536.6 L133.9,534.7 L131.0,532.9 L130.5,527.8 L117.6,526.2 L116.5,525.4 L119.6,518.9 L120.5,512.7 L122.8,510.2 L121.1,508.1 L110.6,505.8 L111.0,502.3 L109.4,499.6 L110.0,497.7 L107.1,492.4 L110.1,488.3 L105.3,489.2 L103.8,488.4 L98.3,488.5 L94.7,489.3 L88.4,492.5 L86.1,492.2 L88.8,486.2 L88.0,483.4 L85.5,481.3 L85.5,478.7 L86.5,475.9 L89.4,474.2 L89.0,471.1 L90.9,466.9 L92.8,467.2 L94.5,466.2 L97.0,460.9 L99.9,461.0 L103.1,456.8 L106.7,455.4 L105.0,451.5 L107.3,449.3 L108.3,439.7 L106.6,423.2 L102.9,421.6 L101.0,423.8 L100.0,423.6 L96.2,412.4 L92.2,408.4 L90.0,408.4 L88.6,406.2 L86.8,405.3 L85.6,405.5 L81.6,411.0 L76.9,408.1 L71.2,408.2 L68.0,406.4 L63.9,408.2 L61.9,407.3 L62.8,405.2 L67.6,400.7 L64.8,395.3 L59.2,397.7 L58.9,394.7 L63.3,391.5 L61.0,391.6 L57.3,387.8 L47.5,392.3 L47.5,393.4 L45.1,395.5 L33.4,392.9 L30.6,390.3 L24.4,393.5 L21.0,396.7 L19.2,397.0 L18.4,398.9 L14.4,401.3 L4.8,403.2 L0.7,408.9 L-6.6,413.3 L-6.3,416.1 L-11.0,418.4 L-17.0,418.7 L-19.3,420.2 L-25.8,419.6 L-25.6,416.5 L-32.6,413.6 L-37.3,415.7 L-43.1,413.7 L-49.9,413.6 L-50.0,410.5 L-58.5,409.5 L-66.4,414.0 L-73.5,422.8 L-76.5,425.2 L-77.5,428.0 L-79.9,425.9 L-80.2,424.1 L-78.3,417.6 L-79.2,415.0 L-82.6,413.4 L-91.7,416.1 L-92.3,417.5 L-97.0,417.2 L-101.5,418.6 L-110.5,418.1 L-120.5,413.2 L-121.6,413.5 L-122.3,415.8 L-124.4,416.4 L-128.0,414.7 L-129.5,412.9 L-130.6,413.5 L-130.9,416.3 L-132.2,416.8 L-138.1,409.9 L-148.6,409.1 L-149.3,408.1 L-147.9,403.9 L-154.8,404.5 L-165.5,397.9 L-167.9,392.1 L-171.0,391.0 L-177.7,392.8 L-185.7,384.7 L-191.4,383.3 L-203.4,376.2 L-206.7,371.2 L-214.3,370.0 L-218.5,371.0 L-221.6,375.6 L-224.3,376.7 L-226.7,372.9 L-232.4,369.5 L-241.7,366.6 L-241.6,363.0 L-243.7,362.6 L-249.2,359.1 L-253.5,359.5 L-256.8,357.3 L-262.1,350.9 L-263.3,350.4 L-264.6,352.3 L-268.7,352.8 L-269.3,349.6 L-267.9,346.8 L-270.1,343.3 L-269.1,340.4 L-273.7,335.6 L-275.7,329.8 L-269.8,328.4 L-268.5,330.8 L-265.7,332.9 L-262.9,332.3 L-261.7,330.6 L-260.0,330.2 L-260.3,321.8 L-262.2,319.8 L-261.6,317.5 L-267.9,311.3 L-269.3,301.6 L-268.8,300.2 L-264.7,297.6 L-264.7,296.2 L-270.4,292.1 L-277.7,289.5 L-282.8,278.3 L-282.2,274.0 L-293.5,274.0 L-300.2,272.6 L-308.8,269.3 L-310.1,268.4 L-310.4,266.3 L-317.4,267.7 L-319.4,264.5 L-322.4,263.2 L-321.3,261.0 L-321.2,256.9 L-323.8,251.9 L-328.8,249.8 L-331.6,250.2 L-333.1,246.9 L-338.6,245.5 L-341.7,246.2 L-345.4,244.6 L-348.3,244.9 L-351.4,242.7 L-344.8,239.8 L-341.7,240.9 L-337.4,238.0 L-341.6,233.9 L-340.8,230.7 L-343.9,222.8 L-342.7,218.8 L-344.4,216.8 L-353.3,214.0 L-356.0,213.9 L-358.0,216.2 L-362.2,215.0 L-364.2,210.3 L-362.3,207.5 L-365.9,203.2 L-365.4,199.1 L-361.8,198.3 L-360.2,196.6 L-361.6,192.5 L-358.6,187.9 L-350.7,186.1 L-345.7,182.8 L-342.8,182.5 L-343.4,180.6 L-342.2,179.4 L-339.5,180.2 L-335.1,179.6 L-329.8,176.8 L-328.6,177.3 L-326.8,182.9 L-323.2,183.0 L-315.9,180.6 L-314.7,182.0 L-311.7,180.2 L-308.3,174.0 L-305.2,170.1 L-303.6,169.4 L-290.9,169.9 L-280.7,168.4 L-276.5,164.5 L-276.2,162.8 L-269.0,159.2 L-258.6,155.0 L-249.7,152.9 L-248.3,151.0 L-240.8,150.1 L-241.3,147.4 L-240.4,146.5 L-242.2,138.4 L-240.6,135.9 L-235.1,134.5 L-235.0,133.7 L-238.0,132.6 L-237.9,131.3 L-233.6,129.7 L-231.1,130.1 L-230.5,129.0 L-232.7,126.2 L-232.0,124.0 L-233.0,121.4 L-238.6,111.4 L-238.6,102.8 L-238.1,100.8 L-236.2,99.7 L-240.5,98.0 L-245.3,98.2 L-247.7,96.5 L-244.2,94.2 L-229.2,91.9 L-213.4,87.7 L-211.5,90.1 L-208.6,91.3 L-202.5,90.2 L-197.7,92.0 L-195.8,88.8 L-196.0,86.3 L-201.4,84.5 L-201.6,83.1 L-188.6,56.0 L-188.1,53.1 L-185.0,53.1 L-169.5,57.2 L-157.2,57.1 L-155.0,59.8 L-146.5,55.9 L-141.8,55.4 L-138.6,51.8 L-138.3,50.2 L-139.9,47.3 L-141.0,39.3 L-137.9,31.9 L-135.3,30.0 L-121.7,27.8 L-118.5,24.6 L-117.9,18.7 L-115.4,17.2 L-112.3,16.8 L-105.3,17.4 L-97.8,15.8 L-96.8,18.9 L-99.2,21.1 L-97.5,22.8 L-93.2,24.4 L-94.7,27.3 L-84.6,30.5 L-83.5,33.6 L-74.6,37.7 L-66.4,37.2 L-60.8,41.0 L-56.1,40.0 L-54.7,42.5 L-50.7,43.8 L-46.2,52.6 L-43.1,56.5 L-40.2,57.5 L-37.2,64.8 L-39.4,70.4 L-37.7,74.8 L-41.6,78.2 L-44.1,84.4 L-40.1,90.6 L-36.8,90.2 L-26.7,92.9 L-10.9,94.2 L-4.0,93.7 L9.7,95.4 L12.4,96.2 L18.1,100.5 L22.6,101.0 L32.3,106.6 L38.7,108.3 L44.3,108.0 L43.9,112.5 L47.7,114.1 L54.0,126.9 L62.3,133.4 L63.9,137.4 L79.4,136.0 L122.0,140.2 L131.8,138.2 L160.3,140.8 L163.4,141.5 L169.3,146.9 L172.8,148.0 L190.1,150.8 L202.1,155.6 L216.9,153.3 L216.9,157.4 L226.1,158.6 L230.1,155.9 L259.8,145.5 L286.2,142.5 L296.0,143.1 L310.2,142.3 L328.3,136.3 L339.8,125.6 L350.0,122.7 L354.2,119.5 L357.2,118.7 L357.2,116.7 L355.4,114.4 L351.0,111.2 L347.2,106.3 L351.3,97.6 L356.6,93.1 L366.3,93.2 L371.8,96.5 L388.4,99.1 L397.7,94.9 L404.1,90.5 L406.8,87.0 L410.2,86.4 L418.2,87.0 L427.9,85.7 L437.7,80.4 L438.5,79.3 L438.0,77.6 L444.6,70.0 L450.2,68.2 L459.1,68.6 L461.1,64.4 L466.8,65.7 L470.0,63.8 L477.5,61.9 L485.3,62.4 L487.6,61.1 L496.8,63.9 L503.9,64.0 L506.9,62.8 L507.5,59.3 L504.0,53.8 L493.6,46.7 L492.1,44.3 L486.0,42.3 L481.1,38.0 L474.5,37.2 L467.3,38.0 L459.4,44.3 L454.1,41.4 L448.3,40.2 L438.3,40.4 L432.0,43.6 L425.6,38.8 L425.0,35.3 L429.9,33.1 L430.6,26.8 L434.4,23.0 L446.9,3.3 L457.5,7.1 L469.3,9.2 L480.2,2.9 L495.5,-1.3 L497.1,-5.3 L496.3,-6.7 L493.7,-7.7 L499.0,-13.3 L500.2,-16.3 L503.5,-19.4 L510.7,-30.2 L522.3,-37.2 L523.6,-39.6 L523.5,-41.6 L522.0,-43.4 L522.6,-47.0 L521.8,-48.4 L519.3,-49.3 L510.7,-49.7 L510.3,-51.3 L511.2,-52.6 L522.7,-59.8 L528.0,-62.0 L553.5,-65.8 L561.2,-65.4 L571.9,-67.1 L580.0,-66.2 L600.2,-59.1 L605.2,-60.4 L616.0,-57.4 L617.5,-54.5 L620.2,-54.2 L623.5,-51.7 L622.9,-49.2 L626.3,-47.5 L629.1,-44.6 L632.3,-36.3 L635.9,-32.1 L636.0,-29.6 L637.8,-28.4 L640.1,-20.8 L647.3,-13.4 L648.1,-11.7 L647.3,-9.3 L647.9,-6.6 L652.6,-3.9 L650.8,0.5 L651.9,3.7 L654.9,6.2 L660.4,8.1 L673.7,7.5 L674.9,8.0 L675.8,10.1 L680.5,11.8 L688.6,11.5 L698.8,19.4 L701.8,20.9 L708.5,21.5 L709.8,23.1 L708.5,26.4 L713.3,31.3 L711.5,35.3 L711.9,37.4 L715.4,40.7 L716.3,43.2 L731.8,43.8 L744.8,43.1 L749.2,38.7 L750.4,38.9 L755.1,36.5 L757.4,35.7 L763.6,35.9 L770.6,32.6 L779.1,30.7 L782.2,31.0 L786.1,32.9 L786.2,34.8 L784.3,37.3 L787.8,43.1 L782.7,48.2 L779.1,48.8 L776.7,50.9 L777.4,54.2 L774.9,57.5 L774.0,62.0 L771.1,66.1 L771.7,68.5 L771.0,70.8 L767.9,72.8 L767.7,75.3 L764.4,77.8 L763.0,82.9 L758.2,85.0 L756.5,90.2 L756.9,91.9 L753.5,93.8 L735.4,89.7 L733.1,88.2 L729.3,90.5 L725.4,94.6 L718.5,96.0 L716.6,97.3 L721.8,111.9 L720.3,118.8 L720.4,122.5 L721.6,123.2 L721.8,124.9 L720.3,129.4 L718.6,131.4 L718.3,133.9 L709.0,135.6 L706.1,137.2 L709.0,139.2 L708.1,140.8 L703.7,138.0 L702.6,134.1 L696.2,132.1 L693.9,136.3 L692.4,142.5 L689.1,143.7 L687.2,142.7 L685.2,143.1 L682.9,146.8 L677.8,150.2 L661.2,151.2 L661.0,152.9 L665.8,158.4 L663.2,162.5 L660.6,161.3 L654.5,161.5 L644.9,159.8 L640.7,155.3 L636.7,156.1 L634.0,157.7 L631.9,163.1 L622.4,171.6 L617.5,172.3 L611.6,176.2 L605.1,178.3 L603.7,179.9 L601.7,180.0 L592.2,186.7 L591.7,188.6 L590.0,190.1 L586.9,191.7 L580.4,192.0 L578.3,190.9 L577.0,192.7 L566.6,194.8 L553.5,200.6 L549.5,204.7 L544.6,207.6 L541.1,207.5 L540.2,208.4 L540.6,210.1 L534.3,211.2 L532.2,212.4 L531.4,212.6 L530.3,209.0 L541.1,205.5 L540.1,203.4 L543.7,200.3 L533.5,200.3 L533.3,197.3 L538.1,195.5 L537.2,193.3 L538.1,191.6 L543.4,189.6 L550.8,181.9 L552.4,178.5 L549.8,175.7 L544.5,172.8 L544.1,170.3 L542.1,172.7 L531.6,171.7 L524.0,177.6 L518.5,184.3 L501.7,190.5 L497.9,193.3 L494.8,199.8 L490.1,204.1 L483.5,204.2 L477.3,206.3 L472.5,203.3 L467.6,205.0 L463.3,213.4 L465.2,218.4 L472.0,223.0 L481.9,224.6 L486.8,224.0 L489.4,225.6 L492.2,232.1 L490.4,233.2 L489.7,239.0 L492.7,241.5 L496.0,242.7 L504.9,242.4 L507.3,240.5 L507.2,238.7 L515.3,233.5 L514.3,232.5 L523.6,229.5 L529.2,231.6 L532.4,234.0 L535.6,234.4 L540.4,236.6 L546.5,236.9 L548.2,235.3 L553.5,237.6 L559.8,237.7 L558.0,239.3 L558.3,241.9 L555.6,244.0 L557.0,246.3 L553.6,248.4 L551.7,248.1 L550.2,246.1 L545.9,246.0 L529.3,252.6 L524.7,252.2 L526.3,255.8 L524.1,255.5 L522.9,256.4 L521.5,261.7 L516.9,263.1 L515.7,262.1 L515.6,259.8 L512.9,260.3 L511.2,261.9 L514.8,264.4 L510.5,266.8 L506.9,270.9 L504.1,271.9 L498.7,277.3 L497.2,280.9 L494.6,282.8 L493.7,285.9 L494.4,287.8 L497.2,287.7 L501.6,290.9 L508.7,293.4 L514.5,296.7 L519.0,308.7 L525.9,320.4 L526.4,323.7 L525.5,327.1 L534.7,331.6 L535.9,332.6 L535.9,335.7 L536.8,336.7 L541.0,338.7 L544.0,341.5 L544.6,345.2 L542.7,345.3 L534.9,342.3 L527.8,342.1 L524.4,339.0 L519.2,337.6 L510.1,340.8 L513.0,341.4 L518.8,339.2 L522.9,339.9 L524.3,343.0 L529.3,344.9 L540.8,352.5 L544.0,357.3 L544.9,360.1 L536.2,362.5 L528.3,366.8 L526.4,370.0 L524.9,370.7 L517.9,370.0 L513.1,372.8 L518.8,371.6 L521.4,374.8 L526.5,374.3 L531.3,371.7 L533.2,371.6 L536.5,373.1 L541.1,377.8 L548.7,379.8 L537.9,387.1 L541.3,386.6 L545.1,384.4 L546.1,384.8 L546.6,387.0 L545.6,393.7 L544.4,393.8 L541.8,391.4 L538.4,391.8 L536.7,393.7 L540.8,396.0 L541.1,397.1 L538.5,397.5 L540.8,399.0 L540.2,400.6 L537.3,403.0 L539.8,409.6 L537.9,409.0 L533.4,410.9 L532.4,408.6 L531.1,408.9 L527.5,414.4 L523.5,414.9 L525.2,417.1 L520.5,423.0 L520.9,426.2 L514.7,432.1 L510.2,440.9 L508.8,441.8 L507.2,441.3 L506.1,436.9 L504.0,439.1 L501.7,438.0 L502.6,441.1 L505.4,442.5 L507.2,446.5 L499.3,451.8 L493.2,450.5 L496.8,453.8 L502.2,452.8 L502.8,454.4 L500.7,460.5 L502.3,464.3 L501.8,464.8 L498.5,463.0 L494.0,463.2 L493.3,463.9 L493.8,465.0 L496.0,467.3 L490.1,467.7 L489.0,469.3 L489.7,471.6 L488.9,473.0 L483.7,474.8 L485.3,476.5 L484.1,478.8 L477.3,479.8 L473.3,478.7 L471.8,481.5 L468.7,481.6 L469.4,483.1 L472.2,483.4 L472.8,485.9 L468.7,490.3 L466.8,490.3 L464.7,493.6 L461.6,493.6 L461.0,494.5 L461.6,495.5 L459.8,498.3 L459.1,496.1 L454.4,498.5 L451.1,497.2 L450.2,500.9 L445.8,502.8 L447.1,504.2 L444.1,506.0 L443.8,509.3 L442.8,510.5 L438.7,509.8 L436.9,511.6 L431.2,513.2 L427.2,512.2 L425.7,512.7 L424.5,514.7 L422.3,514.7 L418.8,512.9 L412.3,516.7 L410.4,516.5 L409.6,514.4 L408.5,514.1 L406.5,516.6 L406.7,518.3 L402.7,517.1 L401.2,518.1 L398.5,517.6 L396.5,518.6 L393.0,516.8 L389.0,512.0 L388.4,509.1 L389.1,507.0 L387.2,507.5 L385.8,508.4 L385.7,510.6 L383.6,511.1 L387.8,517.1 L388.5,521.7 L387.7,524.1 L386.7,523.7 L382.4,526.6 L380.2,526.9 L379.0,524.4 L377.5,526.1 L376.5,530.1 L375.5,530.5 L373.7,529.3 L369.6,532.5 L366.4,530.6 L366.6,529.1 L365.3,528.7 L365.8,532.1 L364.2,533.2 L357.4,531.1 L356.1,533.6 L354.3,533.6 L351.0,536.6 L345.6,538.0 L339.9,537.5 L339.6,539.1 L335.3,539.9 L331.5,543.1 L329.4,542.8 L328.5,540.8 L327.8,543.9 L324.4,546.5 L323.7,548.2 L324.2,549.8 L327.6,550.2 L328.1,551.1 L326.7,553.4 L330.4,556.3 L329.2,559.3 L327.3,560.5 L323.1,561.1 L319.6,560.5 L318.5,559.2 L318.6,558.2 L320.5,558.4 L320.2,557.6 L318.1,556.3 L316.8,554.3 L317.1,552.6 L314.4,548.7 L315.2,546.2 L314.7,544.7 L316.6,540.8 L319.3,540.1 L319.4,538.1 L317.5,538.0 L316.2,536.6 L314.8,537.3 L312.6,534.1 L311.7,534.1 L312.2,537.0 L310.1,538.1 L303.4,538.9 L304.4,536.9 L303.8,536.0 L297.6,535.3 L294.6,532.6 L294.2,530.2 L292.1,530.1 L292.5,535.2 L291.4,535.7 L289.1,534.1 L287.7,536.6 L282.5,537.6 Z M337.5,566.2 L339.1,568.2 L339.9,572.5 L336.3,574.4 L332.8,579.4 L329.3,589.7 L321.7,594.2 L322.0,595.3 L317.3,596.3 L315.1,598.9 L311.7,599.7 L302.5,596.8 L296.3,593.7 L295.0,586.6 L295.3,579.9 L297.9,577.0 L307.1,570.5 L305.2,570.4 L306.9,568.3 L311.6,567.8 L314.2,566.3 L322.3,566.2 L324.0,565.0 L327.2,565.3 L328.2,566.5 L328.2,564.9 L331.9,566.5 L332.0,564.2 L333.1,563.4 L337.5,566.2 Z M544.6,349.2 L543.0,349.7 L538.1,348.1 L534.6,346.3 L532.3,343.3 L537.1,344.2 L539.2,346.5 L544.6,349.2 Z M552.8,378.0 L547.6,377.1 L546.6,374.7 L549.3,374.7 L552.5,376.1 L553.3,376.8 L552.8,378.0 Z M506.1,463.1 L503.8,463.5 L504.2,459.6 L506.4,460.5 L506.1,463.1 Z M328.0,545.4 L328.7,546.1 L330.6,545.6 L330.3,547.8 L325.7,546.7 L328.0,545.4 Z M373.4,535.8 L371.9,534.0 L373.2,532.6 L374.3,532.7 L373.4,535.8 Z M533.0,413.5 L530.8,413.9 L530.8,412.5 L532.2,411.2 L533.0,413.5 Z M475.2,481.2 L474.5,482.3 L473.1,481.1 L473.7,480.1 L475.2,481.2 Z M387.8,513.1 L388.0,514.0 L385.0,511.3 L386.1,511.2 L387.8,513.1 Z M550.4,383.4 L548.0,382.3 L548.3,381.6 L549.4,381.5 L550.4,383.4 Z M554.8,379.4 L554.1,380.1 L553.4,378.6 L554.7,378.3 L554.8,379.4 Z M370.6,535.1 L368.4,535.4 L370.7,533.8 L370.6,535.1 Z" class="land-neutral" data-name="China"/>
+          <path id="zone-indochina" class="zone" d="M282.5,537.6 L279.4,537.8 L276.2,540.2 L271.9,541.8 L270.8,546.1 L267.3,548.1 L265.6,547.2 L262.0,548.1 L258.2,547.2 L259.5,552.2 L255.7,556.1 L256.1,558.6 L255.1,560.6 L248.4,566.2 L245.0,567.2 L241.8,573.8 L241.3,579.4 L238.1,585.5 L243.2,594.3 L254.7,604.8 L254.3,609.1 L252.0,608.2 L255.0,610.1 L259.2,615.7 L266.4,621.6 L267.6,624.6 L274.5,629.4 L279.9,635.4 L283.6,635.3 L287.0,639.8 L288.1,639.8 L288.4,641.7 L293.9,649.3 L298.5,653.2 L303.5,665.7 L303.5,668.8 L307.6,682.0 L307.3,683.7 L306.5,682.0 L307.0,692.8 L309.9,698.9 L310.3,705.7 L308.2,702.8 L306.0,704.8 L307.6,709.6 L305.8,709.1 L306.8,717.8 L306.6,718.7 L305.6,717.0 L304.9,720.1 L305.6,722.2 L304.4,724.5 L302.6,724.7 L301.6,729.5 L298.5,729.9 L288.1,737.1 L284.8,737.8 L283.0,741.1 L280.1,741.5 L269.1,747.2 L265.8,745.3 L264.3,742.3 L263.2,747.2 L260.6,746.5 L259.0,744.6 L256.7,745.9 L259.3,746.3 L259.6,749.1 L254.0,749.1 L259.0,751.1 L260.1,752.5 L256.5,757.4 L247.9,750.5 L254.9,758.1 L256.1,761.5 L254.4,763.0 L252.4,763.1 L242.1,754.7 L248.3,762.4 L249.2,764.1 L248.5,766.1 L235.9,771.8 L232.5,777.3 L228.6,780.6 L222.1,781.2 L224.5,778.4 L223.0,777.3 L223.5,762.1 L224.6,758.2 L228.2,756.6 L228.2,755.7 L226.9,753.4 L224.0,752.6 L222.7,750.9 L220.1,751.5 L215.6,747.0 L218.2,745.0 L223.6,744.6 L227.3,741.5 L227.3,737.5 L232.4,738.8 L234.1,736.8 L240.7,736.0 L242.5,738.4 L244.1,738.0 L248.4,739.7 L248.3,735.1 L242.6,730.3 L242.5,723.9 L245.4,721.5 L252.8,722.9 L253.1,718.0 L258.5,717.4 L259.7,716.0 L262.8,715.5 L268.2,711.2 L270.4,711.0 L271.6,712.1 L273.7,710.1 L274.6,706.8 L273.1,697.5 L275.6,689.9 L270.4,676.9 L271.0,672.3 L274.3,667.0 L273.2,660.8 L276.5,655.6 L274.8,653.0 L269.4,648.7 L267.3,645.2 L271.0,643.0 L271.6,640.7 L262.8,634.8 L261.0,631.6 L259.2,633.0 L257.7,632.2 L255.6,629.2 L254.8,623.5 L239.5,608.7 L235.1,600.9 L232.7,600.2 L228.0,595.3 L229.2,591.5 L221.1,588.6 L205.5,579.2 L208.7,575.8 L208.2,572.2 L212.5,572.0 L218.6,573.2 L221.6,570.7 L225.1,565.7 L224.3,562.8 L222.9,561.9 L220.7,562.2 L219.2,559.0 L214.5,557.7 L217.6,555.6 L218.6,553.8 L209.5,548.2 L200.7,552.9 L190.7,549.2 L185.9,542.2 L187.7,534.3 L185.2,531.9 L184.4,533.8 L182.3,534.4 L180.8,530.1 L179.0,529.1 L172.2,521.1 L178.7,514.1 L185.5,517.2 L188.3,519.8 L191.3,518.1 L191.3,517.1 L194.8,513.8 L198.0,517.2 L200.4,513.5 L206.4,518.1 L208.6,514.1 L210.2,513.2 L211.6,513.0 L213.2,514.9 L214.6,515.0 L217.5,513.1 L220.5,512.8 L222.6,511.1 L223.1,507.5 L231.6,502.9 L234.7,505.0 L236.8,508.1 L242.3,510.9 L248.1,510.0 L250.5,512.1 L255.5,511.2 L260.0,513.6 L258.5,516.3 L256.3,517.5 L255.4,520.8 L257.6,523.7 L257.8,528.7 L263.6,529.7 L265.3,532.2 L269.3,533.8 L270.8,535.7 L278.5,534.8 L282.5,537.6 Z M208.8,747.3 L209.0,750.5 L207.9,754.2 L206.6,750.1 L204.7,747.7 L208.1,746.6 L208.8,747.3 Z M275.5,543.1 L271.8,545.4 L273.1,542.1 L275.5,543.1 Z M264.7,551.9 L262.5,550.5 L263.3,549.7 L265.0,550.2 L264.7,551.9 Z M274.0,548.6 L271.7,549.0 L274.6,546.5 L274.0,548.6 Z M267.3,747.2 L265.7,748.4 L265.6,747.4 L267.5,746.3 L267.3,747.2 Z M261.6,550.6 L259.8,549.7 L260.3,548.5 L261.6,550.6 Z M172.2,521.1 L179.0,529.1 L180.8,530.1 L182.3,534.4 L184.4,533.8 L185.2,531.9 L187.7,534.3 L185.9,542.2 L190.7,549.2 L200.7,552.9 L209.5,548.2 L218.6,553.8 L217.6,555.6 L214.5,557.7 L219.2,559.0 L220.7,562.2 L222.9,561.9 L224.3,562.8 L225.1,565.7 L221.6,570.7 L218.6,573.2 L212.5,572.0 L208.2,572.2 L208.7,575.8 L205.5,579.2 L221.1,588.6 L229.2,591.5 L228.0,595.3 L232.7,600.2 L235.1,600.9 L239.5,608.7 L254.8,623.5 L255.6,629.2 L257.7,632.2 L259.2,633.0 L261.0,631.6 L262.8,634.8 L271.6,640.7 L271.0,643.0 L267.3,645.2 L269.4,648.7 L274.8,653.0 L276.5,655.6 L273.2,660.8 L274.0,665.9 L272.0,668.6 L269.7,668.1 L266.2,671.4 L264.7,671.2 L263.0,673.1 L260.8,673.3 L254.7,668.3 L252.0,670.7 L249.5,670.3 L248.4,672.2 L244.9,672.8 L247.6,678.3 L246.5,680.7 L243.5,680.7 L240.4,677.6 L236.4,676.3 L233.0,677.2 L231.1,675.5 L229.9,672.7 L234.4,670.3 L235.8,668.1 L236.7,661.7 L235.7,655.5 L238.0,651.2 L238.5,648.0 L233.9,644.7 L234.1,641.7 L227.3,638.5 L223.0,632.7 L221.7,629.3 L221.6,624.8 L222.9,617.0 L221.5,613.9 L215.6,609.5 L206.6,597.8 L203.6,597.8 L197.9,595.9 L194.1,596.1 L193.4,596.7 L194.0,598.0 L191.5,599.6 L189.6,603.2 L185.0,604.8 L182.3,607.2 L180.2,604.4 L171.7,599.8 L168.8,602.2 L165.6,603.1 L163.9,605.9 L154.1,613.2 L152.9,613.6 L149.2,611.6 L153.7,601.1 L153.5,598.4 L151.8,595.4 L154.1,592.1 L156.3,585.3 L154.7,578.7 L154.9,574.6 L150.3,573.4 L143.9,575.5 L140.0,572.7 L139.6,570.6 L142.3,563.5 L138.1,558.8 L134.2,561.2 L135.5,554.9 L138.2,551.0 L143.8,549.8 L141.9,548.6 L145.3,542.4 L152.5,538.3 L153.6,536.5 L154.7,537.3 L154.3,539.5 L155.6,543.4 L161.2,542.7 L164.2,544.3 L166.0,543.2 L164.6,541.2 L164.8,531.6 L162.3,528.5 L160.8,523.5 L164.3,519.1 L165.3,519.1 L166.8,521.0 L170.3,520.0 L172.2,521.1 Z M274.0,665.9 L273.5,668.9 L271.0,672.3 L270.4,676.9 L275.6,689.9 L273.1,697.5 L274.4,703.7 L274.3,708.8 L271.6,712.1 L270.4,711.0 L268.2,711.2 L262.8,715.5 L259.7,716.0 L258.5,717.4 L253.1,718.0 L252.8,722.9 L245.4,721.5 L242.5,723.9 L242.6,730.3 L248.3,735.1 L248.4,739.7 L244.1,738.0 L242.5,738.4 L240.7,736.0 L234.1,736.8 L232.4,738.8 L227.3,737.5 L227.3,741.5 L223.6,744.6 L218.2,745.0 L215.6,747.0 L212.5,744.5 L206.4,743.6 L205.1,742.4 L204.5,743.8 L201.2,745.1 L199.8,744.3 L198.7,743.3 L198.9,742.1 L201.5,740.4 L202.3,737.9 L201.0,734.7 L198.7,733.1 L195.4,737.3 L191.6,737.5 L190.4,731.9 L191.0,727.2 L188.9,724.7 L188.8,722.4 L187.7,721.3 L187.4,722.5 L183.7,715.3 L183.1,712.2 L184.1,708.9 L179.2,704.3 L178.5,697.8 L176.1,692.7 L175.8,687.9 L180.1,687.1 L180.1,685.7 L189.3,674.5 L199.0,671.4 L207.2,672.5 L222.2,671.2 L225.8,672.3 L227.1,675.0 L229.9,672.7 L230.3,674.4 L233.0,677.2 L236.4,676.3 L240.4,677.6 L243.5,680.7 L246.5,680.7 L247.6,678.3 L245.4,674.3 L245.4,672.5 L248.4,672.2 L249.5,670.3 L252.0,670.7 L254.7,668.3 L260.1,672.9 L263.0,673.1 L269.7,668.1 L272.0,668.6 L274.0,665.9 Z" fill="url(#landG)" stroke="#4a3a24" stroke-width="1.2"/>
+          <path id="zone-dutchindies" class="zone" d="M313.8,905.1 L312.1,907.6 L313.9,909.9 L314.2,912.9 L330.3,927.1 L341.5,923.6 L348.7,924.6 L354.9,924.3 L357.0,922.4 L360.0,921.8 L362.0,916.2 L367.5,914.0 L376.3,913.8 L377.5,916.3 L387.0,918.7 L389.1,920.1 L394.4,916.3 L403.5,915.1 L405.9,916.0 L408.2,912.9 L409.5,908.5 L411.6,906.9 L410.5,902.6 L411.1,900.9 L418.5,895.8 L416.6,893.7 L416.7,889.8 L419.8,886.3 L420.9,886.9 L423.7,886.1 L425.8,878.4 L425.8,869.1 L427.9,864.3 L432.0,861.3 L434.4,862.4 L438.4,861.1 L441.8,862.1 L443.7,860.9 L454.7,861.6 L463.7,864.7 L461.6,866.5 L467.5,873.8 L464.7,874.8 L462.4,873.0 L461.3,874.9 L453.9,875.0 L456.0,875.6 L459.4,878.7 L460.1,879.9 L458.9,882.2 L464.4,885.6 L464.9,887.7 L463.6,888.1 L466.0,888.9 L464.9,890.1 L467.7,891.6 L473.0,899.7 L472.5,901.6 L467.7,905.2 L473.2,911.3 L483.8,918.5 L490.3,924.9 L488.5,926.7 L481.8,928.0 L475.4,926.9 L470.0,922.7 L471.3,925.2 L471.0,926.6 L466.9,929.6 L462.7,938.9 L461.6,949.5 L463.2,953.9 L463.4,957.9 L457.4,960.9 L452.9,965.8 L451.2,966.5 L449.0,965.7 L447.9,963.1 L448.2,968.4 L444.4,971.2 L443.7,973.5 L439.2,977.1 L442.0,977.1 L442.5,979.7 L442.0,982.1 L439.9,983.8 L443.9,985.1 L444.6,986.8 L443.9,990.8 L439.9,991.5 L439.8,992.5 L441.0,992.0 L440.2,998.2 L438.2,999.6 L437.1,998.8 L437.2,1000.5 L438.8,1002.4 L435.0,1006.6 L433.1,1011.2 L409.3,1022.1 L408.0,1021.0 L407.7,1013.3 L406.1,1007.1 L404.6,1009.1 L402.7,1008.4 L401.9,1006.9 L402.7,1004.4 L400.7,1006.8 L397.8,1005.3 L395.4,1007.4 L390.7,1008.6 L389.3,1007.9 L388.9,1003.7 L383.8,1004.7 L378.0,998.7 L376.8,1003.5 L372.8,1006.1 L369.8,1007.6 L363.9,1006.1 L355.8,1010.4 L355.1,1010.0 L355.2,1001.1 L352.7,997.9 L351.4,999.5 L346.6,998.7 L338.3,1001.3 L336.4,999.9 L337.7,998.3 L334.0,1000.4 L331.6,998.0 L325.6,999.4 L322.6,981.2 L320.0,978.5 L321.4,972.2 L320.4,967.4 L318.4,964.2 L314.7,961.2 L307.3,959.4 L307.0,957.2 L308.9,955.4 L304.9,952.7 L304.2,950.8 L304.2,948.4 L306.6,942.3 L300.8,936.7 L300.3,926.2 L301.1,922.0 L304.4,919.7 L302.1,920.0 L303.3,915.2 L307.0,911.2 L309.0,907.1 L313.8,905.1 Z M65.9,844.7 L74.9,844.0 L79.1,845.1 L84.9,844.7 L86.6,845.8 L92.6,851.3 L94.3,855.4 L99.0,860.1 L98.9,864.3 L100.1,866.2 L106.8,869.3 L109.0,872.5 L116.1,875.8 L127.0,883.3 L142.0,902.1 L148.8,906.6 L147.7,901.1 L149.7,900.1 L151.8,900.8 L156.6,905.4 L159.9,911.5 L165.8,912.8 L170.2,916.2 L172.8,919.6 L174.3,924.7 L177.2,927.5 L180.5,929.3 L187.7,930.9 L189.9,934.1 L188.8,935.6 L180.2,939.3 L186.7,938.1 L195.1,933.7 L197.7,934.3 L201.4,937.9 L203.5,942.5 L196.8,947.0 L196.3,950.2 L198.3,952.2 L197.0,954.3 L198.7,957.6 L202.3,960.1 L208.7,962.7 L214.3,963.0 L217.3,977.7 L218.3,979.7 L223.5,982.9 L223.1,985.6 L219.8,989.2 L219.8,992.4 L225.9,988.1 L233.9,988.3 L237.4,990.4 L246.1,1002.0 L246.4,1004.1 L243.4,1007.7 L242.3,1011.6 L242.5,1013.8 L244.0,1015.7 L242.1,1021.9 L243.2,1037.9 L241.8,1050.5 L240.5,1053.2 L238.1,1052.8 L233.0,1048.1 L227.9,1051.8 L219.6,1047.6 L219.2,1049.8 L220.5,1054.6 L218.9,1054.8 L208.8,1045.0 L204.4,1039.2 L194.9,1033.3 L180.0,1021.7 L172.2,1011.3 L161.9,1003.2 L157.9,996.4 L153.2,992.2 L148.9,985.8 L148.2,979.9 L141.3,967.9 L137.9,959.0 L129.4,949.3 L125.8,942.5 L119.5,939.5 L116.2,936.8 L109.4,915.2 L105.6,908.2 L96.0,902.0 L88.7,898.9 L86.6,889.7 L82.9,887.3 L74.9,875.9 L71.7,873.4 L65.0,871.4 L47.1,853.6 L41.6,843.7 L42.4,841.3 L42.0,838.4 L43.0,837.9 L45.2,837.2 L51.6,838.1 L59.1,843.5 L65.9,844.7 Z M905.2,992.6 L905.2,1063.1 L903.1,1070.6 L905.2,1073.7 L905.2,1115.4 L886.8,1098.0 L889.0,1092.9 L885.6,1096.2 L875.2,1097.9 L873.9,1097.5 L872.6,1094.0 L871.6,1096.0 L866.7,1099.3 L865.9,1098.8 L865.2,1097.1 L869.6,1086.6 L863.2,1080.2 L871.3,1079.1 L868.8,1079.3 L865.0,1078.0 L860.4,1074.3 L865.4,1072.8 L857.3,1063.1 L854.6,1055.6 L856.1,1053.7 L852.8,1053.0 L855.5,1050.5 L850.7,1051.1 L850.2,1046.5 L836.0,1038.0 L835.5,1036.7 L833.9,1037.6 L831.9,1036.3 L823.0,1034.3 L810.9,1028.9 L800.9,1027.2 L796.1,1027.4 L787.8,1022.6 L786.4,1020.4 L786.9,1018.0 L790.3,1017.7 L786.9,1017.5 L783.9,1018.5 L781.0,1017.2 L778.6,1017.8 L776.4,1015.0 L773.1,1015.4 L767.5,1009.0 L767.9,1004.7 L770.6,1001.0 L767.9,1001.7 L767.0,1006.9 L766.0,1007.9 L764.5,1007.8 L764.9,1009.7 L762.5,1013.8 L762.3,1017.0 L759.4,1020.0 L754.1,1020.7 L753.1,1019.9 L750.1,1013.3 L752.3,1010.4 L750.0,1005.6 L742.4,999.5 L736.9,998.4 L735.3,996.0 L740.2,994.0 L749.5,996.0 L755.4,990.3 L758.3,989.4 L766.2,991.5 L767.9,992.9 L768.9,989.6 L771.8,988.5 L771.7,986.9 L769.6,986.7 L772.1,983.1 L768.1,984.7 L754.0,986.3 L741.7,985.7 L736.3,980.9 L734.5,972.8 L730.8,972.5 L722.5,969.7 L719.2,970.9 L716.9,970.3 L717.9,967.6 L720.6,965.4 L721.8,959.5 L732.2,956.7 L738.3,952.0 L743.3,950.1 L752.0,951.3 L763.6,957.1 L773.1,957.4 L775.7,959.4 L774.9,962.3 L778.5,969.1 L775.6,975.9 L777.3,987.0 L782.3,996.8 L782.7,992.1 L784.3,990.8 L785.4,991.3 L786.8,998.7 L789.5,998.3 L790.3,1004.0 L793.2,1006.3 L797.2,1007.0 L801.6,1006.5 L808.7,999.9 L811.6,995.0 L815.9,992.1 L818.7,986.3 L827.2,984.9 L831.5,983.1 L833.4,981.6 L832.5,978.1 L845.4,971.4 L847.4,971.4 L851.1,973.9 L861.3,977.2 L864.4,979.6 L882.8,987.7 L889.7,987.7 L892.4,989.1 L898.5,989.5 L900.4,990.7 L900.9,992.6 L905.2,992.6 Z M601.7,924.6 L592.2,935.0 L580.3,937.6 L571.0,937.2 L567.6,934.2 L544.2,935.2 L538.0,934.0 L528.5,935.1 L520.4,933.4 L516.0,934.9 L513.1,938.3 L509.7,947.1 L510.6,953.9 L514.5,960.4 L519.2,963.0 L522.0,969.2 L528.9,969.9 L531.1,968.7 L533.5,964.5 L539.2,959.0 L542.2,960.9 L546.6,961.0 L552.5,957.7 L563.9,957.6 L562.8,955.8 L569.3,954.2 L573.2,955.6 L574.2,958.1 L573.2,962.3 L570.3,962.3 L568.9,960.5 L567.0,959.9 L564.2,960.4 L553.5,971.7 L544.5,975.3 L540.6,979.2 L535.7,978.0 L535.0,978.8 L534.9,980.1 L539.2,984.0 L542.8,985.7 L548.7,995.3 L552.7,998.3 L552.6,1000.1 L554.7,1003.8 L553.2,1005.2 L551.9,1011.7 L558.1,1016.6 L560.2,1020.5 L563.2,1020.1 L564.1,1023.2 L563.6,1026.3 L560.7,1025.3 L560.8,1026.6 L556.1,1026.8 L549.3,1029.1 L548.2,1030.6 L548.6,1033.8 L547.9,1034.6 L545.6,1034.9 L539.4,1033.2 L537.5,1029.8 L540.0,1020.6 L534.2,1017.3 L526.3,1009.8 L526.5,1007.6 L529.3,1003.2 L529.3,995.3 L528.1,993.8 L526.0,993.3 L521.8,993.7 L515.9,997.5 L514.4,999.0 L514.2,1001.0 L516.8,1006.6 L517.7,1013.3 L516.3,1020.5 L517.4,1030.5 L514.7,1039.5 L517.6,1048.9 L515.3,1048.0 L508.5,1048.6 L504.1,1050.8 L501.1,1049.3 L497.7,1045.8 L497.4,1043.7 L500.4,1035.4 L502.1,1026.9 L502.3,1019.5 L499.6,1013.8 L499.9,1010.5 L497.4,1008.7 L490.5,1010.1 L489.1,1009.1 L487.4,1005.3 L487.9,998.7 L486.5,994.7 L492.3,990.2 L493.8,983.8 L496.6,979.8 L496.4,970.0 L500.2,960.5 L504.0,956.2 L506.5,959.7 L504.2,945.1 L506.9,942.6 L505.8,938.9 L507.8,935.0 L510.1,932.7 L510.5,930.3 L513.8,927.1 L514.5,925.1 L515.5,924.8 L517.3,927.4 L519.2,928.0 L520.8,927.3 L525.8,919.8 L529.8,918.3 L532.2,919.6 L535.9,919.9 L538.7,923.0 L555.4,924.2 L563.0,927.4 L567.3,925.6 L583.6,927.4 L590.1,924.1 L592.7,921.0 L595.0,920.2 L596.2,917.1 L599.8,915.7 L603.6,911.3 L606.9,912.4 L608.2,915.1 L601.7,924.6 Z M271.2,1056.7 L273.1,1058.9 L276.7,1060.7 L285.6,1062.2 L288.6,1061.6 L292.8,1065.5 L294.4,1070.4 L297.7,1071.9 L307.4,1073.0 L311.3,1071.9 L317.4,1073.6 L324.5,1073.5 L328.8,1074.5 L331.8,1071.8 L334.0,1066.4 L336.5,1064.6 L339.1,1064.8 L343.0,1069.6 L349.8,1068.8 L353.5,1071.2 L358.3,1071.8 L360.1,1073.5 L368.7,1074.1 L370.7,1079.6 L373.5,1081.2 L373.5,1085.9 L377.6,1087.9 L386.7,1089.1 L397.6,1087.4 L403.9,1090.4 L404.6,1094.4 L403.5,1102.0 L405.3,1105.7 L407.5,1107.3 L407.2,1108.9 L401.5,1105.9 L395.1,1105.1 L382.1,1099.7 L371.3,1102.1 L360.7,1100.5 L349.2,1100.1 L332.2,1097.2 L318.0,1091.1 L307.2,1088.8 L297.0,1088.1 L293.8,1088.8 L291.5,1090.5 L289.3,1090.5 L279.3,1088.5 L274.5,1085.7 L269.5,1084.4 L253.9,1082.4 L253.1,1080.0 L255.1,1076.5 L244.2,1072.8 L231.2,1072.4 L231.6,1070.4 L233.4,1069.1 L233.7,1070.8 L235.5,1071.3 L237.4,1069.3 L238.8,1065.5 L239.7,1066.0 L241.3,1065.2 L242.8,1058.8 L246.7,1055.0 L260.9,1058.5 L264.4,1056.8 L265.0,1054.8 L271.2,1056.7 Z M655.3,927.4 L658.1,927.7 L659.8,923.7 L663.4,921.6 L663.3,918.6 L664.6,917.0 L668.4,914.8 L673.4,913.7 L673.6,922.5 L666.0,926.9 L665.3,929.6 L671.9,933.0 L673.4,936.6 L677.4,939.3 L668.8,936.0 L660.1,934.5 L659.0,935.1 L658.3,937.8 L658.3,942.5 L660.0,948.1 L665.2,957.2 L668.4,960.2 L665.6,959.8 L664.8,958.3 L661.3,956.7 L658.3,951.4 L654.6,948.0 L654.9,938.0 L652.0,934.2 L651.6,931.9 L653.0,927.4 L651.3,926.0 L649.6,921.9 L649.4,919.8 L651.6,915.7 L653.4,908.6 L658.5,903.1 L661.1,901.9 L658.2,908.8 L660.6,911.3 L660.6,918.3 L658.2,921.5 L653.8,924.3 L653.5,925.7 L655.3,927.4 Z M693.5,997.5 L697.8,999.6 L705.3,999.8 L708.9,1002.5 L710.8,1007.4 L712.7,1007.9 L714.1,1010.1 L713.3,1016.2 L698.5,1009.0 L695.2,1006.2 L688.9,1006.2 L689.1,1008.2 L688.1,1008.6 L678.6,1006.2 L678.4,1004.5 L676.7,1004.4 L672.4,1008.2 L670.1,1008.5 L662.9,1003.0 L658.5,1009.4 L659.0,1006.4 L658.1,1004.2 L664.1,997.5 L679.1,996.8 L680.3,997.0 L681.4,998.8 L688.4,996.0 L693.5,997.5 Z M561.9,1105.9 L555.0,1108.2 L548.9,1108.4 L540.6,1111.3 L539.3,1109.8 L536.1,1109.7 L534.5,1111.6 L529.0,1112.0 L519.8,1109.5 L511.7,1109.0 L507.7,1110.5 L505.8,1107.5 L507.1,1102.3 L508.8,1102.6 L516.1,1099.2 L520.9,1098.9 L523.6,1100.4 L528.5,1101.2 L536.7,1105.2 L546.5,1102.9 L553.3,1106.2 L555.3,1105.7 L558.6,1101.9 L563.2,1100.1 L564.5,1098.5 L561.5,1097.8 L563.1,1096.1 L565.6,1097.2 L566.2,1100.5 L562.5,1103.4 L563.1,1104.9 L561.9,1105.9 Z M476.3,1100.3 L477.2,1101.1 L481.0,1099.5 L483.2,1099.6 L485.2,1102.2 L486.7,1100.1 L489.2,1100.0 L490.3,1100.7 L491.7,1105.7 L493.0,1106.9 L492.1,1108.1 L487.2,1107.8 L485.8,1108.2 L487.4,1110.1 L485.4,1109.5 L479.8,1110.5 L478.8,1107.1 L475.3,1110.2 L454.0,1115.1 L448.8,1113.3 L448.7,1106.9 L449.7,1104.4 L455.9,1101.3 L463.5,1102.4 L468.0,1107.8 L471.1,1108.1 L473.7,1106.6 L475.6,1106.6 L476.1,1105.5 L473.6,1103.3 L471.3,1103.0 L468.2,1100.8 L467.1,1097.2 L470.2,1096.0 L473.9,1096.6 L476.3,1100.3 Z M602.3,1112.1 L602.6,1114.2 L605.7,1113.3 L606.6,1114.0 L605.7,1116.8 L603.0,1117.2 L605.1,1122.9 L603.1,1125.8 L593.0,1134.9 L588.2,1135.5 L582.2,1138.6 L577.4,1137.2 L579.6,1133.6 L577.3,1132.4 L577.2,1131.4 L579.4,1124.8 L585.6,1119.7 L586.6,1121.1 L590.9,1121.0 L592.7,1119.1 L593.3,1116.8 L602.3,1112.1 Z M246.1,974.9 L248.3,978.6 L249.2,984.7 L252.2,989.9 L260.7,991.9 L258.6,993.5 L256.8,998.0 L257.9,1001.4 L245.3,996.7 L243.5,993.3 L244.1,990.4 L241.6,986.9 L241.2,984.6 L236.8,982.6 L232.9,983.5 L228.9,981.9 L230.0,979.6 L233.5,977.6 L233.5,974.7 L235.1,973.1 L237.5,972.2 L239.6,976.1 L240.7,974.7 L240.0,972.3 L243.6,971.8 L245.8,973.5 L246.1,974.9 Z M859.2,1099.5 L854.6,1102.0 L843.2,1102.1 L842.5,1101.6 L843.1,1099.3 L845.9,1093.1 L850.6,1086.2 L854.6,1083.7 L859.3,1082.6 L863.6,1082.8 L867.2,1086.6 L867.7,1088.6 L863.9,1095.5 L859.2,1099.5 Z M509.7,1120.3 L513.6,1122.8 L514.9,1125.4 L518.9,1125.9 L524.2,1131.3 L525.1,1132.8 L522.6,1136.0 L517.7,1137.6 L514.3,1136.6 L510.4,1134.4 L508.1,1131.4 L501.9,1127.8 L497.4,1127.8 L491.4,1125.8 L489.8,1123.0 L494.1,1120.5 L505.6,1120.4 L508.3,1118.9 L509.7,1120.3 Z M638.9,1001.7 L642.0,1003.1 L645.8,1007.4 L646.1,1008.9 L645.8,1011.9 L640.4,1014.4 L635.6,1015.5 L633.0,1014.6 L626.0,1010.9 L623.7,1007.9 L623.1,1003.2 L624.3,1002.0 L626.8,1002.8 L633.1,1001.2 L638.9,1001.7 Z M423.5,1097.3 L425.5,1098.3 L428.4,1102.0 L421.4,1106.0 L419.2,1109.8 L417.8,1110.4 L416.8,1110.0 L417.7,1108.8 L417.1,1106.2 L412.1,1102.4 L407.8,1101.5 L405.0,1097.5 L405.7,1096.5 L413.9,1097.9 L418.0,1095.6 L423.5,1097.3 Z M286.9,1000.0 L286.2,1002.7 L284.1,1004.3 L282.6,1004.2 L281.9,1002.4 L280.3,1001.6 L279.7,1003.0 L275.7,1004.0 L276.2,1002.4 L274.8,998.5 L276.7,991.8 L280.0,991.1 L284.4,992.4 L287.1,994.3 L288.5,996.8 L286.9,1000.0 Z M446.1,1105.9 L443.7,1109.8 L445.0,1111.1 L441.1,1111.9 L434.5,1110.8 L431.3,1109.2 L431.5,1108.4 L435.4,1108.4 L435.1,1102.6 L441.5,1098.2 L447.5,1100.7 L446.1,1105.9 Z M569.4,1029.3 L569.7,1034.4 L568.3,1032.5 L567.1,1033.0 L565.5,1040.3 L565.7,1041.2 L567.0,1040.7 L568.9,1042.0 L569.6,1044.0 L568.3,1045.2 L565.4,1045.4 L562.5,1050.4 L561.0,1049.7 L559.3,1050.3 L558.2,1047.0 L561.6,1041.7 L563.3,1030.5 L565.0,1027.2 L566.8,1026.3 L569.4,1029.3 Z M787.7,1051.1 L787.1,1062.2 L785.6,1063.5 L781.9,1062.9 L776.5,1057.8 L776.5,1057.0 L779.3,1056.8 L780.1,1053.5 L777.5,1051.1 L780.0,1051.2 L783.1,1046.0 L784.4,1045.8 L787.7,1051.1 Z M393.3,1077.5 L389.7,1077.6 L386.2,1079.6 L379.8,1079.7 L372.9,1078.1 L372.2,1076.8 L374.9,1073.6 L395.7,1073.1 L397.8,1075.3 L394.1,1076.4 L393.3,1077.5 Z M84.6,915.8 L88.6,921.1 L93.1,925.0 L92.0,931.5 L91.0,932.7 L88.4,932.1 L86.9,927.7 L83.1,925.5 L81.1,921.0 L77.0,916.5 L80.1,916.5 L82.2,914.3 L84.6,915.8 Z M116.3,976.9 L114.6,977.0 L110.0,973.8 L105.7,966.0 L107.1,961.7 L110.7,960.7 L111.9,961.4 L115.7,970.6 L118.3,974.1 L118.3,976.2 L116.3,976.9 Z M723.1,1094.3 L719.1,1094.3 L718.6,1091.8 L719.6,1088.4 L720.6,1088.1 L721.9,1084.3 L723.6,1083.5 L727.6,1078.0 L729.1,1077.6 L730.9,1079.2 L729.1,1080.5 L730.0,1083.8 L728.8,1087.3 L724.1,1091.9 L723.1,1094.3 Z M713.5,943.5 L717.5,944.1 L722.2,946.2 L723.4,948.9 L721.8,950.3 L716.0,949.8 L711.0,944.9 L709.9,945.0 L710.2,946.1 L712.5,948.9 L715.1,949.9 L715.0,951.2 L712.3,951.8 L711.1,949.0 L708.5,950.3 L707.5,948.4 L702.6,947.4 L703.7,945.3 L705.0,944.8 L706.2,945.3 L713.5,943.5 Z M559.3,1042.8 L557.8,1045.0 L554.6,1044.1 L554.2,1045.0 L553.0,1044.9 L552.5,1043.8 L553.4,1040.3 L554.6,1039.1 L553.5,1034.8 L554.1,1033.3 L560.4,1030.5 L561.5,1036.5 L558.8,1040.4 L559.3,1042.8 Z M603.2,975.6 L605.6,976.2 L606.5,975.3 L607.5,977.0 L609.8,977.5 L609.7,978.8 L603.9,980.1 L600.7,979.1 L594.7,981.3 L592.8,981.2 L591.1,978.5 L592.1,975.2 L594.0,974.4 L603.2,975.6 Z" fill="url(#landG)" stroke="#4a3a24" stroke-width="1.2"/>
+          <ellipse id="zone-manchuria" class="zone" cx="641.5" cy="118.0" rx="141.5" ry="99.0" fill="none" stroke="#8a6a2e" stroke-width="2" stroke-dasharray="5 4" opacity=".7"/>
+          <ellipse id="zone-northchina" class="zone" cx="457.6" cy="292.5" rx="99.1" ry="122.7" fill="none" stroke="#8a6a2e" stroke-width="2" stroke-dasharray="5 4" opacity=".7"/>
+          <path d="M910.0,162.8 L914.3,162.2 L913.2,168.0 L913.8,175.0 L914.4,177.1 L920.7,183.2 L924.4,192.6 L924.1,199.5 L922.7,205.4 L918.1,208.0 L916.0,212.0 L914.5,218.8 L907.7,220.0 L904.9,223.6 L904.3,227.4 L906.3,236.5 L905.7,243.1 L905.1,245.2 L900.6,250.3 L897.6,259.8 L898.5,263.0 L903.3,269.3 L898.9,270.5 L895.4,273.4 L894.7,278.0 L893.5,279.6 L887.9,282.3 L885.3,284.9 L883.8,284.6 L883.0,283.8 L883.8,282.8 L883.5,277.4 L888.6,272.0 L886.6,270.4 L883.7,270.6 L882.4,273.7 L880.2,275.3 L880.5,277.0 L882.0,278.3 L880.7,280.2 L876.9,277.4 L872.6,277.8 L870.5,280.1 L869.5,286.1 L867.6,288.7 L864.9,290.2 L863.4,288.7 L864.2,283.5 L866.1,282.5 L862.6,280.7 L859.9,281.4 L853.8,288.1 L852.6,290.6 L840.4,289.4 L831.4,290.9 L835.6,288.6 L835.4,287.3 L830.8,287.4 L829.5,286.1 L829.1,288.3 L827.8,288.1 L827.4,283.4 L828.2,282.3 L826.5,282.1 L824.3,283.3 L821.4,289.1 L827.9,293.7 L827.4,295.8 L817.5,298.5 L809.7,310.2 L805.6,311.6 L801.0,310.3 L794.9,301.8 L794.3,296.4 L798.3,294.0 L800.3,290.2 L799.2,289.5 L793.2,290.0 L787.5,287.4 L778.2,288.4 L771.3,292.6 L763.1,293.7 L757.4,296.2 L755.1,295.7 L748.2,297.2 L743.8,295.2 L741.7,295.8 L740.3,297.6 L738.6,304.9 L731.0,300.9 L721.4,302.9 L718.3,301.5 L715.4,302.3 L714.9,296.9 L716.1,295.3 L717.1,294.5 L723.7,294.1 L740.7,282.6 L749.9,274.5 L757.7,272.5 L759.8,272.5 L761.8,274.4 L766.3,273.4 L770.9,273.7 L795.7,268.9 L797.5,269.4 L796.8,271.9 L798.6,273.1 L805.3,273.5 L809.5,271.6 L813.1,268.5 L811.4,264.3 L812.6,261.9 L824.5,250.2 L825.5,246.2 L824.9,241.5 L827.2,238.1 L836.3,235.4 L836.6,237.0 L828.3,243.1 L830.1,244.8 L830.5,248.4 L834.8,249.9 L836.7,249.6 L839.9,246.2 L855.1,241.2 L861.0,236.4 L865.8,229.4 L874.8,224.5 L877.8,216.9 L883.1,209.8 L885.1,203.2 L887.5,199.8 L888.0,195.8 L886.7,191.4 L881.9,190.2 L885.1,188.3 L887.0,183.8 L885.4,178.6 L886.2,176.0 L887.3,174.8 L891.6,173.4 L893.3,169.7 L892.7,166.8 L894.1,165.5 L898.6,166.1 L899.6,171.8 L900.9,173.0 L904.5,170.9 L907.9,172.0 L909.9,170.0 L910.3,165.9 L908.6,165.3 L901.9,167.2 L901.9,165.0 L904.5,160.3 L910.0,162.8 Z M958.9,111.0 L964.2,111.3 L971.4,114.2 L975.8,114.6 L988.1,107.0 L987.8,108.9 L983.5,115.7 L983.0,117.6 L983.8,119.6 L987.6,126.4 L990.3,126.8 L993.8,124.7 L996.8,124.8 L992.9,126.6 L990.7,128.8 L987.7,128.7 L979.6,132.1 L974.2,133.1 L966.0,132.6 L961.7,134.3 L954.4,139.6 L951.5,143.0 L949.3,149.4 L947.9,150.9 L934.1,146.1 L921.7,140.0 L913.3,140.6 L905.4,144.5 L900.2,140.5 L895.9,140.4 L893.4,142.7 L893.0,145.4 L896.7,148.5 L900.6,148.7 L908.5,154.6 L905.7,155.9 L899.2,154.4 L894.1,160.0 L889.6,161.8 L887.5,160.9 L886.7,158.9 L888.8,152.6 L887.9,149.7 L883.7,145.7 L884.7,138.7 L889.0,137.1 L894.9,132.9 L896.0,131.1 L894.3,128.9 L894.2,126.4 L896.0,125.7 L902.2,128.2 L908.3,128.7 L911.3,128.3 L912.7,126.8 L913.2,120.0 L917.0,114.7 L918.1,108.2 L920.0,104.1 L920.4,99.7 L919.2,95.5 L916.7,91.4 L918.3,86.8 L923.4,84.7 L941.2,100.6 L958.9,111.0 Z M720.3,309.4 L723.9,310.0 L728.0,308.4 L730.1,309.4 L730.4,311.3 L727.1,315.6 L733.9,316.0 L733.0,318.5 L734.9,319.9 L734.2,321.3 L735.9,323.0 L729.4,330.8 L725.7,341.8 L725.7,345.8 L723.3,350.9 L718.3,350.2 L717.6,351.4 L718.8,353.7 L711.1,358.2 L713.0,353.4 L711.4,347.6 L713.1,346.7 L712.8,345.2 L710.5,344.9 L708.6,347.9 L708.3,350.9 L710.3,353.4 L709.2,355.1 L701.9,353.0 L700.9,350.8 L703.7,350.0 L704.2,347.1 L701.7,344.0 L701.8,337.9 L705.6,335.5 L710.2,327.9 L707.5,327.2 L708.9,325.8 L708.4,323.9 L705.3,319.0 L702.6,317.4 L700.5,318.8 L701.4,323.6 L704.3,323.5 L704.5,326.4 L702.7,326.8 L699.1,325.1 L693.7,328.8 L694.8,325.9 L691.8,322.1 L692.1,319.6 L694.9,322.8 L698.0,323.6 L696.2,320.3 L690.2,316.3 L690.8,314.3 L695.2,314.7 L694.8,312.5 L701.3,309.5 L705.0,308.8 L707.2,305.0 L711.6,303.2 L716.1,304.3 L718.1,308.1 L720.3,309.4 Z M780.3,297.1 L785.6,297.6 L786.3,304.8 L787.5,305.3 L780.7,309.3 L778.2,312.5 L777.0,316.1 L772.8,312.3 L766.6,311.1 L760.1,314.0 L757.5,319.2 L755.0,321.1 L754.3,323.7 L751.0,325.4 L748.0,325.2 L749.2,322.6 L745.2,322.3 L745.1,320.6 L743.9,319.6 L745.5,315.2 L743.5,314.5 L743.6,312.6 L736.5,314.3 L748.0,307.7 L750.6,302.0 L753.5,300.1 L757.2,303.3 L765.7,301.6 L766.9,299.3 L766.1,297.3 L768.0,297.4 L772.6,295.3 L775.0,295.1 L780.3,297.1 Z M665.3,440.5 L657.9,444.5 L658.6,446.6 L656.4,448.0 L656.7,450.0 L653.8,451.0 L655.3,444.6 L659.3,441.6 L658.3,440.9 L658.6,439.7 L661.3,440.7 L665.2,436.2 L666.6,437.5 L665.3,440.5 Z M855.5,229.8 L853.3,229.6 L854.4,229.2 L855.1,227.0 L853.7,226.5 L853.8,224.9 L858.6,220.5 L857.6,225.0 L859.9,225.2 L858.4,228.2 L855.5,229.8 Z M687.8,411.2 L686.2,412.7 L682.4,410.4 L692.3,405.3 L692.6,406.9 L687.5,410.3 L687.8,411.2 Z M699.7,335.3 L698.2,336.0 L697.4,335.0 L698.4,334.1 L697.7,333.1 L698.3,329.8 L701.3,329.4 L701.9,333.2 L699.7,335.3 Z M791.2,296.5 L789.1,298.1 L787.4,297.9 L786.2,296.3 L789.3,293.0 L792.5,291.6 L790.7,294.4 L791.2,296.5 Z M686.5,295.2 L686.1,296.1 L684.3,294.9 L685.4,290.4 L687.8,288.9 L688.2,291.7 L686.4,294.0 L686.5,295.2 Z" class="land-empire" data-name="Japan"/>
+          
+          
+          
+          </g>
+
+          <path d="M 1005.2,274.2 L 1006.0,273.5 L 1006.2,274.0 L 1005.2,274.2 Z M 1013.9,269.9 L 1012.7,270.3 L 1012.5,270.2 L 1013.9,269.9 Z M 1008.1,274.4 L 1008.2,273.9 L 1009.2,273.8 L 1008.1,274.4 Z M 837.4,57.1 L 834.5,56.5 L 831.0,56.6 L 836.3,54.0 L 839.8,53.9 L 837.4,57.1 Z M 1092.9,-19.8 L 1092.1,-20.7 L 1095.9,-22.7 L 1097.0,-21.5 L 1092.9,-19.8 Z M 716.0,294.8 L 713.5,290.8 L 714.6,290.2 L 714.4,289.2 L 711.6,287.2 L 714.4,285.6 L 723.8,283.9 L 724.1,281.4 L 725.8,279.4 L 727.4,275.0 L 727.1,273.2 L 725.9,272.5 L 725.8,268.8 L 727.3,261.9 L 722.1,247.3 L 724.0,246.1 L 731.0,244.7 L 734.9,240.5 L 738.6,238.2 L 741.0,239.8 L 759.2,243.8 L 762.6,241.9 L 762.6,238.3 L 764.0,235.0 L 768.7,233.0 L 770.2,227.8 L 772.7,226.3 L 773.7,222.9 L 776.8,220.8 L 777.6,218.6 L 776.9,216.1 L 779.9,212.0 L 780.8,207.6 L 783.3,204.2 L 782.6,200.9 L 785.0,198.8 L 789.7,197.5 L 793.7,193.1 L 790.2,187.4 L 792.1,184.9 L 792.1,183.0 L 790.1,181.7 L 785.0,180.7 L 776.4,182.6 L 769.3,185.9 L 763.2,185.8 L 754.9,188.8 L 750.5,193.2 L 737.4,193.8 L 728.5,192.9 L 721.7,193.3 L 720.9,190.7 L 717.4,187.4 L 717.0,185.4 L 718.8,181.3 L 714.0,176.4 L 715.2,173.2 L 714.0,171.5 L 707.2,171.0 L 697.2,163.7 L 694.6,162.8 L 694.0,161.6 L 685.7,161.8 L 681.1,160.2 L 680.1,159.6 L 680.1,158.0 L 678.9,157.6 L 665.5,158.2 L 660.0,156.2 L 657.0,153.8 L 655.9,150.5 L 657.7,146.1 L 652.9,143.4 L 652.3,141.5 L 653.1,138.3 L 652.4,136.7 L 645.1,129.3 L 642.8,121.7 L 641.0,120.5 L 640.8,117.9 L 637.2,113.7 L 634.0,105.5 L 631.2,102.5 L 627.8,100.8 L 628.5,98.4 L 625.1,95.9 L 622.4,95.5 L 620.9,92.7 L 610.0,89.6 L 605.0,90.9 L 598.4,89.1 L 593.7,86.5 L 582.1,83.2 L 573.5,83.2 L 561.4,84.9 L 558.0,84.3 L 532.3,88.1 L 527.0,90.2 L 515.4,97.5 L 514.5,98.8 L 514.9,100.4 L 523.5,100.7 L 526.1,101.6 L 526.9,103.0 L 526.0,104.9 L 526.3,106.7 L 527.8,108.5 L 527.9,110.5 L 526.6,112.8 L 514.9,119.9 L 510.1,126.2 L 508.8,129.2 L 504.4,133.8 L 503.1,136.8 L 497.7,142.4 L 500.4,143.4 L 501.2,144.8 L 499.6,148.8 L 490.0,150.8 L 484.2,153.0 L 473.3,159.2 L 461.3,157.1 L 450.7,153.4 L 448.1,151.6 L 441.8,149.9 L 432.3,152.3 L 426.8,152.0 L 413.8,145.6 L 405.4,144.9 L 391.6,149.9 L 383.8,153.9 L 381.8,157.3 L 377.1,159.0 L 371.1,158.9 L 363.3,160.9 L 349.1,162.2 L 337.2,166.2 L 331.9,164.8 L 327.6,165.7 L 309.3,162.6 L 297.4,162.8 L 285.1,156.6 L 284.2,151.0 L 271.2,150.3 L 261.3,144.2 L 252.0,144.3 L 245.5,142.4 L 236.1,141.1 L 230.6,142.7 L 218.7,144.3 L 211.3,147.1 L 206.1,146.7 L 202.9,147.4 L 196.6,146.3 L 193.9,144.6 L 184.9,142.8 L 177.4,139.0 L 177.9,136.5 L 176.0,134.4 L 174.8,125.3 L 174.0,124.5 L 163.7,122.4 L 160.1,122.7 L 142.8,117.5 L 132.4,116.9 L 128.6,114.8 L 122.7,113.8 L 112.9,110.1 L 108.1,116.1 L 102.6,117.7 L 100.1,121.7 L 96.7,122.7 L 94.9,124.6 L 94.2,128.1 L 92.8,130.2 L 92.6,131.5 L 95.0,133.9 L 96.5,137.9 L 101.2,140.0 L 100.7,144.3 L 97.9,148.6 L 96.0,149.8 L 88.1,151.7 L 83.8,154.9 L 80.9,155.1 L 76.7,152.3 L 63.9,151.9 L 59.2,150.1 L 56.7,150.8 L 54.0,149.8 L 48.9,151.7 L 41.1,151.3 L 37.7,149.2 L 31.7,149.6 L 26.7,145.9 L 24.8,139.6 L 3.0,138.7 L 1.2,137.7 L -0.1,135.4 L -3.2,135.4 L -4.0,136.6 L -6.1,137.1 L -11.2,133.8 L -12.4,134.0 L -14.3,136.8 L -21.7,137.0 L -28.5,140.2 L -29.1,141.2 L -36.6,142.2 L -43.5,145.9 L -54.9,148.3 L -56.4,150.3 L -62.7,151.9 L -62.5,155.4 L -67.4,157.4 L -70.3,157.1 L -72.9,159.5 L -74.8,160.0 L -76.8,158.7 L -78.1,160.5 L -81.9,159.7 L -90.3,160.4 L -91.7,164.1 L -95.2,165.8 L -106.8,167.3 L -108.5,164.8 L -112.9,163.5 L -116.5,159.7 L -120.0,158.3 L -120.2,157.4 L -118.0,155.8 L -119.1,154.3 L -128.5,159.5 L -146.5,157.3 L -150.9,152.0 L -150.9,-95.1 L 1557.8,-95.1 L 1557.8,-76.1 L 1552.4,-75.3 L 1548.6,-73.0 L 1541.5,-72.4 L 1535.5,-70.2 L 1531.7,-70.9 L 1522.4,-65.1 L 1517.2,-66.3 L 1516.2,-65.6 L 1518.1,-63.3 L 1514.8,-63.4 L 1512.0,-61.0 L 1508.4,-60.6 L 1507.8,-59.6 L 1508.3,-58.6 L 1474.5,-46.8 L 1469.6,-37.9 L 1465.8,-38.3 L 1462.6,-39.8 L 1460.8,-42.7 L 1455.7,-46.8 L 1448.2,-49.8 L 1437.7,-49.2 L 1433.7,-49.7 L 1427.6,-49.4 L 1410.3,-46.2 L 1405.3,-44.3 L 1392.2,-35.8 L 1390.5,-35.7 L 1389.6,-38.2 L 1393.7,-47.7 L 1390.4,-47.6 L 1385.9,-45.3 L 1369.6,-40.4 L 1369.4,-37.5 L 1367.1,-35.6 L 1363.8,-36.2 L 1361.7,-38.5 L 1357.4,-39.9 L 1351.2,-36.6 L 1351.6,-38.3 L 1344.8,-39.3 L 1337.8,-35.4 L 1335.1,-29.5 L 1335.2,-25.4 L 1331.6,-22.2 L 1328.9,-21.9 L 1330.1,-20.1 L 1329.4,-19.4 L 1319.6,-14.2 L 1313.7,-9.3 L 1310.3,-2.3 L 1311.8,0.7 L 1318.8,3.3 L 1318.5,4.5 L 1319.9,3.6 L 1320.9,1.0 L 1323.5,0.1 L 1334.3,3.1 L 1333.6,6.0 L 1325.8,11.3 L 1325.5,13.4 L 1326.4,16.1 L 1326.3,21.6 L 1328.5,23.3 L 1330.9,22.9 L 1334.9,23.9 L 1334.6,26.2 L 1336.4,32.5 L 1330.9,36.0 L 1327.0,35.6 L 1323.0,32.5 L 1324.6,30.6 L 1328.0,29.4 L 1330.7,27.0 L 1327.7,27.9 L 1323.8,27.6 L 1320.3,29.4 L 1321.1,32.0 L 1312.6,35.2 L 1306.8,43.4 L 1305.8,46.4 L 1307.0,51.9 L 1312.6,57.9 L 1313.0,60.4 L 1303.9,64.9 L 1297.6,64.8 L 1294.5,63.3 L 1287.7,64.4 L 1274.5,71.0 L 1271.6,74.5 L 1270.1,78.7 L 1272.2,83.1 L 1271.1,86.3 L 1273.1,88.3 L 1273.5,91.0 L 1272.1,91.1 L 1268.7,89.1 L 1265.2,89.0 L 1253.2,92.6 L 1249.2,95.2 L 1245.8,92.5 L 1244.1,92.9 L 1243.3,94.3 L 1246.6,95.9 L 1244.2,100.5 L 1244.5,105.1 L 1241.4,110.6 L 1237.1,115.9 L 1231.7,119.8 L 1226.2,122.1 L 1219.9,127.2 L 1211.3,131.8 L 1209.9,126.9 L 1207.4,125.3 L 1207.0,124.0 L 1206.4,114.0 L 1204.0,102.7 L 1201.5,100.5 L 1199.2,96.0 L 1196.2,79.4 L 1191.5,64.8 L 1188.8,52.0 L 1188.7,49.2 L 1191.7,35.5 L 1196.8,23.8 L 1210.9,15.2 L 1213.2,12.6 L 1215.7,9.2 L 1215.1,6.4 L 1212.1,3.9 L 1212.9,3.3 L 1215.8,2.4 L 1220.2,3.4 L 1224.7,2.9 L 1228.8,-1.2 L 1240.3,-1.0 L 1243.6,-3.9 L 1258.1,-10.6 L 1265.3,-16.0 L 1270.2,-22.1 L 1279.7,-27.1 L 1283.5,-30.0 L 1289.3,-31.5 L 1300.6,-39.1 L 1306.4,-41.4 L 1312.3,-47.4 L 1324.6,-51.0 L 1329.5,-53.3 L 1336.7,-53.7 L 1343.5,-55.9 L 1340.5,-57.9 L 1341.8,-59.5 L 1347.0,-62.0 L 1349.1,-63.9 L 1348.5,-65.3 L 1345.3,-66.1 L 1346.8,-69.5 L 1349.4,-70.8 L 1350.4,-77.1 L 1352.9,-81.8 L 1360.4,-85.2 L 1371.9,-83.3 L 1372.1,-84.7 L 1375.9,-84.7 L 1375.5,-85.6 L 1364.0,-87.1 L 1356.9,-89.6 L 1336.3,-86.7 L 1334.7,-84.9 L 1335.8,-83.3 L 1333.1,-81.2 L 1332.5,-77.2 L 1330.4,-74.2 L 1330.2,-72.3 L 1334.9,-70.6 L 1331.6,-68.2 L 1329.9,-67.7 L 1327.3,-70.7 L 1325.3,-70.8 L 1324.3,-69.7 L 1318.5,-69.9 L 1292.8,-56.7 L 1287.6,-52.8 L 1282.2,-52.5 L 1276.4,-50.6 L 1277.3,-54.2 L 1280.3,-57.9 L 1276.6,-58.3 L 1270.8,-56.4 L 1269.1,-56.6 L 1272.1,-59.8 L 1270.8,-62.9 L 1277.7,-69.6 L 1279.1,-72.4 L 1278.9,-74.3 L 1276.5,-74.4 L 1264.6,-71.0 L 1259.7,-74.7 L 1257.7,-74.9 L 1245.5,-72.7 L 1241.4,-73.0 L 1236.4,-71.6 L 1225.0,-72.5 L 1217.7,-70.2 L 1210.0,-66.5 L 1209.1,-62.6 L 1198.2,-57.3 L 1191.7,-51.4 L 1177.6,-45.7 L 1170.1,-40.4 L 1167.5,-36.4 L 1164.7,-35.4 L 1164.3,-32.1 L 1162.0,-29.7 L 1164.3,-28.7 L 1170.2,-29.9 L 1177.6,-28.2 L 1181.3,-26.5 L 1181.2,-23.3 L 1174.8,-23.2 L 1172.5,-22.4 L 1167.8,-23.8 L 1163.8,-21.7 L 1159.4,-21.1 L 1153.4,-23.9 L 1147.0,-23.7 L 1145.3,-21.4 L 1141.6,-21.2 L 1136.7,-18.3 L 1127.2,-20.3 L 1124.3,-19.6 L 1122.8,-18.0 L 1108.4,-17.3 L 1104.5,-21.3 L 1111.8,-22.8 L 1121.0,-22.7 L 1126.1,-23.9 L 1124.4,-24.9 L 1117.3,-25.8 L 1111.4,-29.6 L 1108.8,-30.3 L 1102.8,-30.7 L 1098.8,-28.4 L 1092.4,-29.0 L 1095.9,-30.2 L 1076.4,-34.2 L 1072.3,-34.1 L 1065.5,-31.6 L 1068.1,-28.9 L 1062.8,-28.7 L 1060.4,-29.7 L 1058.7,-28.2 L 1059.4,-26.7 L 1063.5,-26.7 L 1062.6,-25.0 L 1059.0,-24.6 L 1054.6,-24.6 L 1050.1,-27.5 L 1042.9,-27.0 L 1039.3,-25.2 L 1036.0,-24.8 L 1022.5,-26.7 L 1017.5,-28.3 L 1015.7,-27.8 L 1012.5,-23.9 L 1008.2,-22.9 L 1006.0,-23.4 L 1002.6,-26.7 L 998.8,-27.5 L 978.5,-26.8 L 966.8,-27.5 L 960.2,-26.2 L 954.0,-26.7 L 937.6,-22.6 L 931.8,-19.7 L 923.8,-13.1 L 908.3,-6.6 L 906.3,-4.8 L 901.8,2.7 L 893.4,5.1 L 889.6,8.3 L 886.1,9.4 L 882.8,11.8 L 877.8,13.1 L 873.7,16.4 L 867.9,18.7 L 859.5,25.0 L 856.8,28.7 L 849.5,34.3 L 832.5,42.7 L 826.1,44.9 L 820.7,49.1 L 812.7,52.7 L 808.7,53.6 L 803.4,56.8 L 802.4,58.7 L 803.3,60.8 L 814.6,63.6 L 832.5,62.9 L 833.0,66.1 L 830.4,75.9 L 831.0,78.3 L 832.6,78.7 L 834.2,77.6 L 839.3,78.0 L 841.3,74.1 L 838.2,72.2 L 839.1,71.2 L 843.6,69.3 L 849.0,69.3 L 846.1,71.7 L 842.8,72.7 L 848.2,75.2 L 852.2,75.6 L 848.6,77.1 L 846.2,80.1 L 840.6,82.5 L 841.2,83.2 L 854.4,82.1 L 860.2,79.8 L 862.6,76.3 L 865.4,75.4 L 866.2,75.6 L 866.2,78.0 L 860.1,83.6 L 863.9,83.3 L 867.9,79.4 L 868.7,77.1 L 869.0,70.4 L 867.9,69.0 L 880.4,71.0 L 887.8,69.4 L 896.7,73.6 L 899.9,78.1 L 906.4,82.2 L 912.4,84.1 L 916.5,87.2 L 919.4,87.9 L 920.0,90.0 L 915.8,93.2 L 909.3,91.8 L 914.0,95.4 L 917.2,96.5 L 917.0,102.0 L 914.8,104.1 L 915.6,105.4 L 921.5,109.0 L 919.6,111.3 L 919.3,113.8 L 911.1,119.5 L 909.3,123.4 L 906.4,126.8 L 906.1,130.2 L 903.2,135.0 L 902.4,139.8 L 903.5,147.6 L 905.2,148.5 L 902.1,151.7 L 903.2,157.7 L 899.2,167.9 L 900.5,169.6 L 897.6,173.2 L 895.5,179.8 L 881.4,189.9 L 874.4,199.4 L 866.5,205.6 L 862.8,211.4 L 861.8,215.2 L 859.4,216.8 L 857.4,220.8 L 849.4,228.9 L 832.7,241.1 L 822.2,250.6 L 820.1,254.0 L 815.0,256.2 L 808.5,263.8 L 807.6,266.3 L 803.4,269.2 L 800.9,272.2 L 779.6,283.1 L 763.5,287.8 L 761.6,287.3 L 760.4,285.7 L 757.9,286.0 L 754.9,284.4 L 747.2,284.3 L 747.3,276.2 L 742.0,279.8 L 738.9,280.3 L 741.7,276.8 L 740.3,276.4 L 736.2,278.3 L 729.9,285.4 L 725.5,289.1 L 717.0,288.6 L 719.3,291.1 L 717.3,294.8 L 716.0,294.8 Z M 949.8,71.9 L 948.7,78.5 L 954.5,87.9 L 956.5,94.2 L 956.4,100.8 L 953.6,105.7 L 953.9,113.4 L 955.9,117.2 L 956.4,120.2 L 958.9,122.3 L 959.3,125.5 L 960.4,126.5 L 965.8,144.7 L 970.2,152.0 L 975.8,165.5 L 977.5,168.0 L 982.3,171.3 L 982.8,175.7 L 979.5,170.9 L 970.2,164.2 L 964.2,163.0 L 957.6,163.4 L 952.3,165.2 L 950.8,166.9 L 942.2,186.4 L 941.9,192.7 L 945.5,198.1 L 949.2,200.5 L 954.4,210.5 L 957.6,210.3 L 959.5,211.3 L 961.3,218.7 L 958.5,225.0 L 957.0,216.5 L 955.7,215.0 L 947.1,214.1 L 944.5,212.1 L 942.3,212.3 L 939.0,215.0 L 935.3,223.8 L 932.8,227.1 L 930.6,225.2 L 928.1,217.0 L 928.8,212.4 L 932.0,204.0 L 930.6,195.6 L 934.8,187.5 L 933.9,182.3 L 928.8,173.6 L 931.7,167.4 L 934.0,158.2 L 934.2,146.0 L 932.6,138.2 L 935.3,131.2 L 935.2,127.0 L 931.4,121.4 L 926.0,117.3 L 927.7,116.3 L 925.0,113.6 L 924.9,107.2 L 927.6,101.9 L 928.6,97.4 L 928.5,86.1 L 934.0,84.1 L 937.4,85.8 L 939.4,85.7 L 941.3,85.0 L 942.4,83.3 L 941.0,82.4 L 941.8,81.2 L 944.2,80.8 L 944.4,79.7 L 943.5,79.6 L 944.7,76.6 L 944.0,75.2 L 937.7,69.3 L 941.8,69.3 L 944.5,66.8 L 945.8,67.2 L 949.8,71.9 Z M 1426.5,64.9 L 1415.2,59.6 L 1414.3,58.5 L 1422.7,61.6 L 1426.5,64.9 Z M 847.3,52.0 L 859.3,55.1 L 857.2,55.9 L 854.6,59.7 L 850.1,62.1 L 848.9,62.3 L 845.2,58.1 L 840.8,59.7 L 841.6,57.8 L 847.3,52.0 Z M 1339.0,-10.4 L 1338.1,-11.8 L 1341.0,-12.9 L 1343.8,-15.9 L 1344.9,-18.4 L 1344.5,-20.0 L 1359.9,-23.9 L 1361.6,-19.1 L 1360.7,-17.5 L 1348.2,-14.9 L 1339.0,-10.4 Z M 1399.2,61.5 L 1391.3,56.9 L 1386.8,52.2 L 1382.3,50.2 L 1385.7,49.1 L 1392.2,49.9 L 1391.3,51.2 L 1391.7,52.6 L 1399.3,58.8 L 1399.2,61.5 Z M 1172.7,163.9 L 1170.7,163.4 L 1170.8,161.7 L 1174.8,156.7 L 1176.2,157.0 L 1174.4,160.1 L 1174.9,162.4 L 1172.7,163.9 Z M 1204.1,138.1 L 1200.3,136.2 L 1204.3,133.8 L 1205.8,133.8 L 1206.3,135.9 L 1204.1,138.1 Z M 1193.2,146.2 L 1187.9,147.3 L 1185.7,149.3 L 1182.7,148.3 L 1182.7,146.0 L 1181.8,145.1 L 1186.4,143.1 L 1191.0,142.5 L 1194.9,137.1 L 1199.0,135.5 L 1199.5,137.4 L 1198.0,141.5 L 1193.2,146.2 Z M 1160.0,173.8 L 1159.0,173.2 L 1161.5,170.7 L 1163.5,170.9 L 1160.0,173.8 Z M 1188.6,134.8 L 1187.3,133.7 L 1187.0,132.8 L 1190.3,132.9 L 1190.4,134.6 L 1188.6,134.8 Z M 1141.2,193.3 L 1139.9,192.9 L 1141.7,191.4 L 1142.1,192.2 L 1141.2,193.3 Z M 1117.7,210.7 L 1116.5,210.6 L 1115.8,209.4 L 1118.6,209.1 L 1124.3,204.6 L 1126.7,204.0 L 1117.7,210.7 Z M 1074.4,233.2 L 1072.7,233.2 L 1076.9,228.5 L 1079.3,227.8 L 1082.5,225.1 L 1089.8,221.5 L 1093.7,221.6 L 1087.7,225.3 L 1086.9,226.8 L 1074.4,233.2 Z M 1056.6,238.4 L 1050.2,240.3 L 1043.6,244.5 L 1038.7,244.8 L 1036.9,247.5 L 1032.1,250.4 L 1030.2,252.8 L 1024.3,255.6 L 1025.0,253.5 L 1028.9,250.7 L 1029.2,248.8 L 1030.9,247.1 L 1043.1,240.1 L 1042.8,238.7 L 1043.8,237.1 L 1046.3,239.4 L 1051.4,239.0 L 1056.9,235.2 L 1060.7,234.7 L 1061.1,237.5 L 1060.2,238.2 L 1056.6,238.4 Z M 1020.2,268.6 L 1018.8,268.1 L 1019.1,266.7 L 1022.9,265.9 L 1024.3,266.9 L 1020.2,268.6 Z M 1014.0,255.2 L 1018.0,254.9 L 1017.1,256.2 L 1009.4,258.6 L 1005.6,261.3 L 1002.8,264.3 L 999.4,266.1 L 998.8,269.5 L 996.6,268.2 L 997.0,265.7 L 1002.5,261.9 L 1009.4,253.8 L 1014.0,255.2 Z" class="land-neutral" id="country-russia"/>
+          <g transform="translate(2071.9,690.4)"><path d="M44.69154716981127,44.30166037735851 L42.81581132075475,45.13818867924526 L39.03209433962219,43.19796226415093 L38.854283018867555,37.31094339622641 L35.873924528301416,30.37828301886793 L40.18279245282995,25.393207547169794 L38.81560377358459,22.502207547169785 L39.96903773584902,20.456037735849062 L51.909830188679,25.76632075471695 L54.036150943396024,28.00688679245284 L54.41664150943355,30.41145283018866 L55.86766037735833,30.717320754717 L59.35473584905618,34.632773584905635 L54.651566037735414,38.50586792452827 L49.81850943396209,39.61969811320757 L45.561245283018486,42.470150943396206 L44.69154716981127,44.30166037735851 Z M27.607245283018568,8.064754716981124 L31.555867924528275,7.711886792452802 L36.98407547169781,11.374924528301895 L34.77115094339627,13.494811320754723 L29.079452830188224,14.241962264150931 L27.73437735849051,10.542999999999957 L25.18056603773557,10.154226415094302 L23.77930188679233,8.652528301886761 L24.3983962264151,6.329962264150907 L25.747169811320678,6.144792452830177 L27.607245283018568,8.064754716981124 Z M2.8421698113206433,-1.8234150943396559 L4.322679245282703,-1.8436792452830357 L5.93584905660348,0.9883584905660181 L4.88926415094333,1.5144150943396164 L2.8532264150941984,1.7244528301886717 L0.9102264150941073,0.3664905660377505 L-0.15937735849090717,0.6244528301886879 L-0.5361886792455899,-0.3493584905660708 L-1.2695283018867598,-0.1457547169811443 L-0.5840943396226564,0.8280566037735474 L-3.025509433962592,0.7810566037735638 L-6.097075471698319,-4.250075471698106 L-3.265962264151231,-4.532905660377369 L-0.23584905660409536,-6.440886792452863 L2.8421698113206433,-1.8234150943396559 Z M-26.84441509433958,-10.799490566037717 L-28.50364150943403,-9.73816981132076 L-31.298830188679304,-10.368320754717022 L-34.701132075472096,-12.864094339622634 L-33.520962264150995,-14.720490566037746 L-30.739603773584903,-16.28575471698112 L-26.453792452830193,-16.218490566037758 L-25.48460377358493,-14.06175471698115 L-26.84441509433958,-10.799490566037717 Z M13.893905660376907,2.728660377358467 L23.355509433962276,3.8664528301886762 L20.568622641509407,5.729283018867917 L12.446566037735513,4.667962264150963 L13.208471698112804,2.4568867924528255 L13.893905660376907,2.728660377358467 Z M20.762094339622678,11.081962264150908 L18.42662264150927,11.367547169811319 L16.970075471697715,8.444320754716957 L20.178000000000022,8.588037735849028 L21.52122641509434,9.978264150943396 L20.762094339622678,11.081962264150908 Z M-42.07601886792457,-9.076679245283017 L-43.107867924528314,-8.370981132075467 L-42.84713207547202,-10.137094339622621 L-40.57801886792495,-12.362905660377361 L-39.59867924528335,-12.163000000000029 L-40.18922641509448,-10.328716981132095 L-42.07601886792457,-9.076679245283017 Z" class="land-neutral"/></g>
+          <text x="2117.9" y="682.4" class="map-label">Pearl Harbor</text>
+          <text x="855" y="380" text-anchor="middle" class="map-label">Japan</text>
+          <text x="286" y="452" text-anchor="middle" class="map-label">China</text>
+          <text x="653" y="374" text-anchor="middle" class="map-label">Korea</text>
+          <text x="511" y="650" text-anchor="middle" class="map-label">Taiwan</text>
+          <text x="238" y="810" text-anchor="middle" class="map-label">French Indochina</text>
+          <text x="235" y="1128" text-anchor="middle" class="map-label">Dutch East Indies</text>
+          <text x="760" y="150" text-anchor="middle" class="map-label">Russia</text>
+          <text x="641.5" y="268.0" text-anchor="middle" class="region-label">Manchuria</text>
+          <text x="457.6" y="442.5" text-anchor="middle" class="region-label">North China</text>
+<rect width="2400" height="1350" filter="url(#mapGrain)" opacity="0.35"/>
+        </svg>
+        <svg id="arcsLayer" viewBox="0 0 2400 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+        <div class="home-flag" title="Japan">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#fff8ea" stroke="#4a3a24" stroke-width="2"/><circle cx="20" cy="20" r="10" fill="#a4172c"/></svg>
+        </div>
+        <!-- markers are inserted here by JS -->
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-hud">
+    <div class="date-banner" id="dateBanner">Click the first stamp on the map to begin</div>
+    <div class="map-hud-btns">
+      <button class="hud-btn" id="mapHelpBtn" aria-label="Show Chain 2 instructions" title="Instructions">?</button>
+      <button class="hud-btn" id="mapZoomOutBtn" aria-label="Zoom out" title="Zoom out">−</button>
+      <button class="hud-btn" id="mapZoomInBtn" aria-label="Zoom in" title="Zoom in">+</button>
+      <button class="hud-btn hud-btn-wide" id="mapResetBtn" title="Reset to full map">Full map</button>
+    </div>
+  </div>
+
+  <div class="map-intro" id="mapIntro">
+    <div class="chain-eyebrow">Chain 2 of 2 · International escalation</div>
+    <h2>How did aggression become a <span style="color:var(--crimson)">world war</span>?</h2>
+    <p>Click each stamp on the map in order. Drag the map to move around, and use the + / − buttons (or your mouse wheel) to zoom in and out. Watch how far the empire's reach grows with every move, and who reacts to stop it.</p>
+    <div class="meter">
+      <div class="meter-label"><span>World tension</span><span id="tensionText2">Rising</span></div>
+      <div class="meter-track"><div class="meter-fill" id="meterFill2" style="left:8%"></div></div>
+    </div>
+    <button class="begin-btn" id="mapIntroClose">Begin →</button>
+  </div>
+
+  <div class="recap" id="recap2">
+    <h3>You have followed the whole chain</h3>
+    <div class="recap-strip" id="recapStrip2"></div>
+    <button class="crossbtn" id="toFinal">Make sense of the whole chain →</button>
+  </div>
+</section>
+
+<!-- ===================== PAGE 4 : FINAL TASK ===================== -->
+<section class="page p4 paper" id="page4">
+  <div class="map-arcs"></div>
+  <div class="final-wrap" style="position:relative;z-index:2">
+    <div class="chain-eyebrow" style="text-align:center">Final task</div>
+    <h1 class="ink-caption">So why did Japan go to <span class="hi-crim">war</span>?</h1>
+    <p class="lead">You have followed fourteen linked events across two chains. Now show that you understand how one event caused the next, not just what happened.</p>
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="build">Build It Myself</button>
+      <button class="mode-tab" data-mode="starter">Sentence Starters</button>
+      <button class="mode-tab" data-mode="match">Match the Statements</button>
+    </div>
+
+    <div class="mode-panel active" id="mode-build">
+      <h3>Explain the chain in your own words</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:-4px">Use at least three links from the chain. Show how one event led to the next.</p>
+      <textarea id="buildText" placeholder="Japan turned to militarism because... which then led to... and finally..."></textarea>
+      <button class="showmodel" id="showModelBtn">Show a model response</button>
+      <div class="model" id="modelBox">Japan's rapid modernisation after the Meiji Restoration gave it the military strength to build an empire, but the unequal Washington Naval Treaty and the Great Depression left ordinary Japanese people angry and hungry. Militarist leaders used this anger to seize control of the government by 1936. Needing raw materials, they invaded Manchuria, and when the League of Nations failed to stop them, Japan felt free to invade China in 1937. As the West grew distracted by war in Europe, Japan expanded further into Southeast Asia, provoking a US oil embargo that made war seem like the only way to survive. This chain of cause and effect ended with the attack on Pearl Harbor in 1941.</div>
+    </div>
+
+    <div class="mode-panel" id="mode-starter">
+      <h3>Complete the causation chain</h3>
+      <div class="starter-line">1. Japan modernised quickly after 1868 because it feared <input type="text" placeholder="being colonised"></div>
+      <div class="starter-line">2. This new strength convinced Japan it deserved to be treated as <input type="text" placeholder="an equal of the West"></div>
+      <div class="starter-line">3. The Great Depression and unfair tariffs led ordinary Japanese to lose faith in <input type="text" placeholder="the civilian government"></div>
+      <div class="starter-line">4. By 1936, army and navy ministers dominated the Cabinet, which made <input type="text" placeholder="an aggressive foreign policy official"></div>
+      <div class="starter-line">5. Japan invaded Manchuria to gain <input type="text" placeholder="coal and iron"></div>
+      <div class="starter-line">6. Because the League of Nations could not enforce its decisions, Japan felt free to <input type="text" placeholder="invade China in 1937"></div>
+      <div class="starter-line">7. The 1940 US embargo on oil, steel and iron made <input type="text" placeholder="war seem more attractive, not less"></div>
+      <div class="starter-line">8. Japan attacked Pearl Harbor to buy time to seize <input type="text" placeholder="Southeast Asia's oil and rubber"></div>
+    </div>
+
+    <div class="mode-panel" id="mode-match">
+      <h3>Match each cause to its effect</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:-4px">Click a cause, then click the effect you think follows it.</p>
+      <div class="match-grid">
+        <div class="match-col"><h4>CAUSE</h4><div id="matchCauses"></div></div>
+        <div class="match-col"><h4>EFFECT</h4><div id="matchEffects"></div></div>
+      </div>
+      <div class="match-status" id="matchStatus">0 of 6 matched</div>
+    </div>
+
+    <div class="full-recap">
+      <h3>Your complete chain</h3>
+      <div class="recap-strip" id="fullRecapStrip"></div>
+    </div>
+  </div>
+</section>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e3b054"/><stop offset="100%" stop-color="#a4172c"/>
+    </linearGradient>
+  </defs>
+</svg>
+<div class="backdrop" id="backdrop"></div>
+<div class="card" id="card"><div id="cardContent"></div></div>
+<div class="backdrop" id="mapBackdrop"></div>
+<div class="map-popup" id="mapPopup"><div id="mapPopupContent"></div></div>
+
+<script>
+/* ---------------- DECORATIVE DARK MAP BACKDROP ---------------- */
+const MAP_ARCS_SVG = `<svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice">
+  <g class="drift" stroke="#e3b054" stroke-width="1" fill="none">
+    <path d="M-50 480 Q 300 250 500 380 T 950 200" opacity="0.35"/>
+    <path d="M-50 120 Q 250 300 480 160 T 950 420" opacity="0.25"/>
+    <path d="M100 -20 Q 400 200 380 450 T 700 620" opacity="0.22" stroke="#a4172c"/>
+    <path d="M850 -20 Q 600 180 650 400 T 300 600" opacity="0.18" stroke="#a4172c"/>
+  </g>
+</svg>`;
+document.querySelectorAll('.map-arcs').forEach(el=>{el.innerHTML=MAP_ARCS_SVG});
+</script>
+<script>
+/* ---------------- ICONS ---------------- */
+const ICONS = {
+  factory:`<svg viewBox="0 0 40 40"><path d="M6 32 V18 L14 22 V18 L22 22 V14 H30 V32 Z" fill="none" stroke="#332a20" stroke-width="2"/><path d="M30 14 V8 M27 8 h6" stroke="#a4172c" stroke-width="2"/></svg>`,
+  swords:`<svg viewBox="0 0 40 40"><path d="M8 32 L28 10 M8 32 L4 36 M28 10 L32 6" stroke="#332a20" stroke-width="2" fill="none"/><path d="M32 32 L12 10 M32 32 L36 36 M12 10 L8 6" stroke="#a4172c" stroke-width="2" fill="none"/></svg>`,
+  scale:`<svg viewBox="0 0 40 40"><path d="M20 6 V32 M10 34 H30 M6 14 H16 M24 14 H34" stroke="#332a20" stroke-width="2" fill="none"/><path d="M6 14 L2 22 A6 4 0 0 0 10 22 Z M34 14 L30 22 A6 4 0 0 0 38 22 Z" fill="none" stroke="#a4172c" stroke-width="2"/></svg>`,
+  bowl:`<svg viewBox="0 0 40 40"><path d="M6 20 Q20 34 34 20" fill="none" stroke="#332a20" stroke-width="2"/><path d="M6 20 H34" stroke="#332a20" stroke-width="2"/><path d="M14 20 V12 M20 20 V10 M26 20 V12" stroke="#a4172c" stroke-width="2"/></svg>`,
+  seal:`<svg viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="24" rx="2" fill="none" stroke="#332a20" stroke-width="2"/><path d="M8 8 L32 32 M32 8 L8 32" stroke="#a4172c" stroke-width="2"/></svg>`,
+  helmet:`<svg viewBox="0 0 40 40"><path d="M8 26 A12 12 0 0 1 32 26 V30 H8 Z" fill="none" stroke="#332a20" stroke-width="2"/><path d="M4 30 H36 M20 8 V14" stroke="#a4172c" stroke-width="2"/></svg>`,
+  arrow:`<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="none" stroke="#a4172c" stroke-width="2"/><path d="M12 20 H28 M22 14 L28 20 L22 26" stroke="#332a20" stroke-width="2" fill="none"/></svg>`,
+  rail:`<svg viewBox="0 0 40 40"><path d="M4 30 H36 M4 22 L36 22" stroke="#332a20" stroke-width="2"/><path d="M20 8 L28 22 L12 22 Z" fill="none" stroke="#a4172c" stroke-width="2"/></svg>`,
+  brokenchain:`<svg viewBox="0 0 40 40"><circle cx="12" cy="14" r="7" fill="none" stroke="#332a20" stroke-width="2"/><circle cx="14" cy="28" r="7" fill="none" stroke="#332a20" stroke-width="2"/><path d="M24 16 L32 24 M32 16 L24 24" stroke="#a4172c" stroke-width="2"/></svg>`,
+  bridge:`<svg viewBox="0 0 40 40"><path d="M4 28 Q20 10 36 28" fill="none" stroke="#332a20" stroke-width="2"/><path d="M4 28 H36 M10 28 V34 M20 28 V34 M30 28 V34" stroke="#a4172c" stroke-width="2"/></svg>`,
+  storm:`<svg viewBox="0 0 40 40"><path d="M8 20 A8 8 0 0 1 16 12 A9 9 0 0 1 32 16 A7 7 0 0 1 30 30 H12 A8 8 0 0 1 8 20 Z" fill="none" stroke="#332a20" stroke-width="2"/><path d="M16 30 L12 38 M22 30 L18 38 M28 30 L24 38" stroke="#a4172c" stroke-width="2"/></svg>`,
+  oil:`<svg viewBox="0 0 40 40"><path d="M12 8 H28 V34 H12 Z" fill="none" stroke="#332a20" stroke-width="2"/><path d="M12 18 H28 M12 26 H28" stroke="#332a20" stroke-width="1.4"/><path d="M6 6 L34 34" stroke="#a4172c" stroke-width="2.4"/></svg>`,
+  sunrays:`<svg viewBox="0 0 40 40"><circle cx="20" cy="24" r="8" fill="none" stroke="#a4172c" stroke-width="2"/><path d="M20 4 V10 M6 24 H12 M28 24 H34 M9 13 L13 17 M31 13 L27 17" stroke="#332a20" stroke-width="2"/></svg>`,
+  anchor:`<svg viewBox="0 0 40 40"><circle cx="20" cy="8" r="4" fill="none" stroke="#332a20" stroke-width="2"/><path d="M20 12 V30 M10 30 A10 10 0 0 0 20 34 A10 10 0 0 0 30 30 M8 20 H32" stroke="#a4172c" stroke-width="2" fill="none"/></svg>`
+};
+
+/* ---------------- DATA ---------------- */
+const chain1 = [
+{icon:'factory',year:'1868',label:'Meiji Restoration',title:'Japan ends isolation',
+ action:"For over 200 years, Japan's shoguns kept the country closed off from the world. In 1868, a political revolution called the Meiji Restoration ended the shogunate and returned power to Emperor Meiji. Japan modernised fast, building railways, factories and a Western style army and navy, because it feared it would be colonised like its neighbours if it stayed weak.",
+ leadsto:"A newly modernised Japan now had the military strength to build an empire of its own.",
+ think:"Why did Japan modernise so quickly after 1868?",
+ opts:[["To avoid being colonised by Western powers",true],["To copy Chinese culture",false],["To restore the samurai class to power",false]]},
+{icon:'swords',year:'1894 to 1905',label:'Military victories',title:'Confidence grows',
+ action:"Japan used its new military to fight and win wars against China (1894 to 1895) and Russia (1904 to 1905). The Russo-Japanese War was historic, it was the first time an Asian power had defeated a European one. Japan gained Taiwan and influence over Korea, and by the 1920s was a respected member of the League of Nations.",
+ leadsto:"These victories convinced Japan it deserved to be treated as an equal of the Western powers.",
+ think:"Why was the Russo-Japanese War (1904 to 1905) significant?",
+ opts:[["It was the first time an Asian power defeated a European power",true],["It ended Japan's isolation policy",false],["It gave Japan control of the Philippines",false]]},
+{icon:'scale',year:'1921',label:'Washington Naval Treaty',title:'An unequal ratio',
+ action:"In 1921, Japan signed the Washington Naval Treaty with Britain, France and the USA to limit the number of warships each country could build. The ratio agreed was 5 for the USA, 5 for Britain, and only 3 for Japan. Many Japanese felt this treated them as inferior, not as an equal partner.",
+ leadsto:"The sense of being disrespected by the West fed a more aggressive, ultranationalist mood at home.",
+ think:"Why did many Japanese resent the Washington Naval Treaty?",
+ opts:[["The ratio made Japan look inferior to Britain and the USA",true],["It banned Japan from having a navy",false],["It gave Japan more ships than it wanted",false]]},
+{icon:'bowl',year:'1929 onwards',label:'Great Depression',title:'Tariffs and hunger',
+ action:"Japanese farmers still used slow, traditional hand methods, so food shortages hit hard when the Great Depression struck. Western powers raised tariffs to protect their own economies, and the USA taxed Japanese electric bulbs by 25 percent, canned fish by 50 percent, and clothing by 70 percent. Demand for Japan's main export, silk, collapsed.",
+ leadsto:"As ordinary people lost faith in the civilian government's ability to protect them, the military's argument that only expansion could save Japan grew louder.",
+ think:"What effect did the Great Depression and foreign tariffs have on Japan?",
+ opts:[["They destroyed Japan's export trade and living standards",true],["They forced Japan to lower its own tariffs",false],["They convinced Japan to join the League of Nations",false]]},
+{icon:'seal',year:'15 May 1932',label:'PM Inukai assassinated',title:'Civilian rule weakens',
+ action:"Civilian politicians who preferred trade and diplomacy still controlled the government in the 1920s, and they cut military budgets. This angered military leaders. On 15 May 1932, a group of officers assassinated Prime Minister Inukai Tsuyoshi. The killers received light sentences and popular support, and martial law was declared soon after.",
+ leadsto:"Intimidated by the assassination and the public support for it, civilian leaders began handing more power to the military.",
+ think:"What happened after Inukai Tsuyoshi's assassination in 1932?",
+ opts:[["The killers were given light sentences and public sympathy",true],["The military was banned from politics",false],["Japan left the war party movement",false]]},
+{icon:'helmet',year:'by 1936',label:'Military takes the Cabinet',title:'Concessions granted',
+ action:"The politicians and the Emperor granted the military more concessions, hoping to prevent further violence. Admiral Saito Makoto became Prime Minister, and by 1936 army and navy ministers dominated the Cabinet, the government's highest decision making body.",
+ leadsto:"With militarists now controlling the Cabinet, an aggressive foreign policy of expansion became official government direction.",
+ think:"Why did civilian leaders keep giving in to military demands?",
+ opts:[["They hoped it would prevent more political assassinations",true],["They agreed that democracy had failed",false],["They were ordered to by the League of Nations",false]]},
+{icon:'arrow',year:'1936',label:'Aggressive policy becomes official',title:'The bridge',
+ action:"By 1936, the military effectively ruled Japan. It supported an aggressive foreign policy because it believed Japan needed to conquer territory abroad to gain the raw materials, like coal, iron and oil, that Japan itself lacked.",
+ leadsto:"A militarist government now needed raw materials abroad, by force if necessary, and it looked first towards Manchuria.",
+ think:"Why did a militarist government make war more likely?",
+ opts:[["It believed expansion abroad was the only way to get raw materials",true],["It wanted to join the League of Nations",false],["It planned to make peace with China",false]],
+ bridge:true}
+];
+
+const chain2 = [
+{icon:'rail',year:'Sept 1931',label:'Mukden Incident',title:'Invasion of Manchuria',
+ action:"In September 1931, Japanese officers secretly planted a bomb on their own railway line in Manchuria, then blamed China for it. Using this as an excuse, Japan invaded Manchuria, which was rich in coal and iron, exactly the resources Japan needed. By February 1932, Japan had created a puppet state called Manchukuo.",
+ leadsto:"Japan now had to face the League of Nations, whose response would decide whether expansion was worth the risk.",
+ think:"Why did Japan want Manchuria specifically?",
+ opts:[["It was rich in coal and iron that Japan lacked",true],["It had a large Japanese population already",false],["It was Japan's original territory before 1868",false]]},
+{icon:'brokenchain',year:'1933',label:'League fails to act',title:'Condemned but not stopped',
+ action:"The League of Nations condemned Japan's actions by a vote of 13 to 1, and its Lytton Report told Japan to leave China. Japan simply withdrew from the League in 1933 instead. The League's sanctions failed because the USA, Japan's main trading partner, was not even a League member, and Britain and France were not willing to risk their armies over it.",
+ leadsto:"Seeing that the West's disapproval had no real force behind it, Japan was emboldened to expand further.",
+ think:"Why couldn't the League of Nations stop Japan?",
+ opts:[["Sanctions and military action both failed because key powers were not League members or would not act",true],["The League secretly supported Japan's invasion",false],["Japan was too small a country to punish",false]]},
+{icon:'bridge',year:'July 1937',label:'Second Sino-Japanese War',title:'Marco Polo Bridge Incident',
+ action:"In July 1937, Japanese troops training near the Marco Polo Bridge outside Beijing exchanged fire with Chinese soldiers. Both sides rushed in more troops, and the incident escalated into a full scale invasion of China. Japan conquered Shanghai and Nanjing later that year.",
+ leadsto:"China appealed to the League for help, but the world's attention was already turning elsewhere.",
+ think:"What triggered the full scale invasion of China in 1937?",
+ opts:[["An exchange of gunfire near the Marco Polo Bridge escalated into war",true],["China declared war on Japan first",false],["The League of Nations ordered Japan to invade",false]]},
+{icon:'storm',year:'1937 to 1941',label:'The West is distracted',title:"Hitler's shadow",
+ action:"China appealed to the League of Nations, but Western powers were preoccupied with Hitler's expansion in Europe. When Hitler later invaded the USSR, Stalin too became consumed with fighting Germany. Japan took advantage of this distraction to expand into Southeast Asia, including French Indochina.",
+ leadsto:"Expanding into European colonies in Southeast Asia brought Japan into direct conflict with the one Western power still watching closely, the United States.",
+ think:"Why was Japan able to expand into Southeast Asia with little resistance?",
+ opts:[["Western powers and the USSR were preoccupied with the war in Europe",true],["Southeast Asia had no natural resources worth taking",false],["The League of Nations approved Japan's expansion",false]]},
+{icon:'oil',year:'1940',label:'US oil embargo',title:'Resources cut off',
+ action:"The USA gave financial and military aid to China and began restricting trade with Japan. In 1940, the USA imposed a trade embargo on oil, steel and iron to try to force Japan to stop its aggression.",
+ leadsto:"Cut off from the resources its war machine needed, Japan felt it now had to seize Southeast Asia's oil and rubber by force, making war more attractive, not less.",
+ think:"What was the effect of the 1940 US embargo on oil, steel and iron?",
+ opts:[["It strangled Japan's war machine and made seizing resources by force seem necessary",true],["It convinced Japan to withdraw from China immediately",false],["It had no real effect on Japan's economy",false]]},
+{icon:'sunrays',year:'1940 to 1941',label:'Greater East Asia Co-Prosperity Sphere',title:'"Asia for Asians"',
+ action:"Japan promoted the idea of a Greater East Asia Co Prosperity Sphere, claiming it would liberate Southeast Asia from Western colonial rule under the idea of Asia for Asians. In reality, it was a plan to replace European colonies with Japanese controlled satellite states so Japan could access raw materials directly.",
+ leadsto:"To build this new empire, Japan would have to remove the Western colonial powers from Asia by force, starting with the United States Pacific Fleet.",
+ think:"What was the real purpose of the Greater East Asia Co Prosperity Sphere?",
+ opts:[["To replace Western colonies with Japanese controlled territory",true],["To genuinely grant independence to all Asian nations immediately",false],["To form a peaceful trading alliance with the USA",false]]},
+{icon:'anchor',year:'7 Dec 1941',label:'Attack on Pearl Harbor',title:'The final domino',
+ action:"America controlled the Philippines and had a large navy in the Pacific, making it the only Western power capable of stopping Japan's expansion. On 7 December 1941, Japan launched a surprise attack on the US Pacific Fleet at Pearl Harbor, hoping to cripple America long enough to seize Southeast Asia's oil and rubber. Japanese diplomats were still exchanging friendly gestures with US leaders beforehand, and no formal declaration of war was made until after the attack.",
+ leadsto:"The surprise attack achieved the opposite of what Japan hoped, it brought the United States into the Second World War against Japan.",
+ think:"Why is the element of surprise in the Pearl Harbor attack historically significant?",
+ opts:[["It was a pre-planned, undeclared attack that broke international norms and united American opinion for war",true],["It was a spontaneous decision made without planning",false],["It was announced to the world weeks in advance",false]]}
+];
+
+/* ---------------- STATE ---------------- */
+let idx1=-1, idx2=-1, answered={};
+const $=id=>document.getElementById(id);
+function page(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
+function shuffle(opts){const a=opts.map((o,i)=>({o,i}));for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+
+function buildBaseline(chain,baselineId,isChain2){
+  const base=$(baselineId);
+  chain.forEach((ev,i)=>{
+    if(i>0){
+      const c=document.createElement('div');
+      c.className='connector-arc';
+      c.id=(isChain2?'c2conn':'c1conn')+i;
+      c.innerHTML='<svg viewBox="0 0 40 28"><path class="arc-path" d="M2 26 Q20 2 38 26" stroke-width="2.6" stroke-linecap="round"/><circle class="arc-badge" cx="20" cy="11" r="5" fill="#1c1712" stroke="#e3b054" stroke-width="1.4"/><circle class="arc-badge" cx="20" cy="11" r="1.8" fill="#e3b054"/></svg>';
+      base.appendChild(c);
+    }
+    const slot=document.createElement('div');slot.className='domino-slot';
+    const dom=document.createElement('button');
+    dom.className='domino'+(i>0?' locked':'')+(ev.bridge?' bridge-domino':'');
+    dom.id=(isChain2?'c2dom':'c1dom')+i;
+    dom.innerHTML=`<span class="num">${i+1}</span><span class="icon">${ICONS[ev.icon]}</span><span class="yr">${ev.year}</span>`;
+    dom.addEventListener('click',()=>openCard(chain,i,isChain2));
+    slot.appendChild(dom);
+    const lbl=document.createElement('div');lbl.className='slot-label';lbl.textContent=ev.label;
+    slot.appendChild(lbl);
+    base.appendChild(slot);
+  });
+  if(chain.length){document.getElementById((isChain2?'c2dom':'c1dom')+0).classList.remove('locked');document.getElementById((isChain2?'c2dom':'c1dom')+0).classList.add('pulse');}
+}
+buildBaseline(chain1,'baseline1',false);
+
+/* ---------------- CHAIN 2 : EXPANSION MAP ---------------- */
+const ACTORS = {
+  japan:{label:'Japanese Empire',ring:'ring-jp',arc:'jp',
+    photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Emperor_Hirohito_1928.jpg',
+    photoCap:'Emperor Hirohito, official portrait, 1928 — Wikimedia Commons, public domain'},
+  china:{label:'Republic of China',ring:'ring-jp',arc:'jp',
+    photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Chiang_Kai-shek_in_1933.jpg',
+    photoCap:'Chiang Kai-shek, 1933 — Wikimedia Commons, public domain'},
+  us:{label:'United States',ring:'ring-us',arc:'us',
+    photo:'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_in_1933.jpg',
+    photoCap:'Franklin D. Roosevelt, official portrait, 1933 — Wikimedia Commons, public domain'},
+  league:{label:'League of Nations',ring:'ring-league',arc:'league',
+    photo:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMjgiIGZpbGw9IiMyMDE4MGYiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTNiMDU0IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzAgMTQgVjQ2IE0xNCAzMCBINDYiIHN0cm9rZT0iI2UzYjA1NCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L3N2Zz4=',
+    photoCap:'League of Nations emblem (illustration)'}
+};
+const chain2Map = [
+  {x:23.94,y:22.6, zone:'zone-manchuria',  actor:'japan'},
+  {x:1.7, y:22.93, zone:null,              actor:'league'},
+  {x:18.25,y:25.2, zone:'zone-northchina', actor:'japan'},
+  {x:10.13,y:51.61,zone:'zone-indochina',  actor:'japan'},
+  {x:78.0,y:12.0,  zone:null,              actor:'us'},
+  {x:10.89,y:89.68,zone:'zone-dutchindies',actor:'japan'},
+  {x:86.33,y:51.14,zone:null,              actor:'japan'}
+];
+const HOME={x:36.72,y:31.15};
+let mapProgress=-1;
+function buildMap(){
+  const wrap=$('mapCanvasWrap');
+  chain2.forEach((ev,i)=>{
+    const pos=chain2Map[i];
+    const info=ACTORS[pos.actor];
+    const btn=document.createElement('button');
+    btn.className='map-marker'+(i===0?' visible pulse':'');
+    btn.id='mk'+i;
+    btn.style.left=pos.x+'%';btn.style.top=pos.y+'%';
+    const isOffMap = pos.actor==='league';
+    if(isOffMap) btn.classList.add('offmap');
+    const labelText = isOffMap ? '&larr; Geneva, off map' : ev.year;
+    btn.innerHTML=`<div class="medallion ${info.ring}"><span class="num">${i+1}</span><img src="${info.photo}" alt="${info.label}"></div><span class="marker-label">${labelText}</span>`;
+    btn.addEventListener('click',()=>openMapEvent(i));
+    wrap.appendChild(btn);
+  });
+}
+buildMap();
+
+/* ---------------- MAP PAN / ZOOM CONTROLLER ---------------- */
+function makePanZoom(stageEl,panEl,zoomEl,canvasEl){
+  const MIN_SCALE=1, MAX_SCALE=3.2;
+  let scale=1, panX=0, panY=0, natW=0, natH=0;
+  let dragging=false, dragMoved=0, startClientX=0, startClientY=0, startPanX=0, startPanY=0;
+  function measure(){ natW=canvasEl.offsetWidth; natH=canvasEl.offsetHeight; }
+  function updateDragability(){ stageEl.classList.toggle('can-drag', scale>1.001); }
+  function apply(animate){
+    panEl.style.transition = animate ? 'transform .9s cubic-bezier(.22,.85,.32,1)' : 'none';
+    zoomEl.style.transition = animate ? 'transform .9s cubic-bezier(.22,.85,.32,1)' : 'none';
+    panEl.style.transform = `translate(${panX}px,${panY}px)`;
+    zoomEl.style.transform = `scale(${scale})`;
+    updateDragability();
+  }
+  function clamp(){
+    const vw=stageEl.clientWidth, vh=stageEl.clientHeight;
+    const w=natW*scale, h=natH*scale;
+    panX = (w<=vw) ? (vw-w)/2 : Math.min(0, Math.max(vw-w, panX));
+    panY = (h<=vh) ? (vh-h)/2 : Math.min(0, Math.max(vh-h, panY));
+  }
+  function resetView(){ measure(); scale=1; panX=0; panY=0; clamp(); apply(true); }
+  function zoomToMarker(xPct,yPct,targetScale){
+    measure();
+    const vw=stageEl.clientWidth, vh=stageEl.clientHeight;
+    scale=Math.min(MAX_SCALE,targetScale);
+    const mx=xPct/100*natW, my=yPct/100*natH;
+    panX = vw/2 - scale*mx;
+    panY = vh/2 - scale*my;
+    clamp(); apply(true);
+  }
+  function zoomAt(newScale,focusX,focusY){
+    newScale=Math.min(MAX_SCALE,Math.max(MIN_SCALE,newScale));
+    const localX=(focusX-panX)/scale, localY=(focusY-panY)/scale;
+    scale=newScale;
+    panX=focusX-scale*localX; panY=focusY-scale*localY;
+    clamp(); apply(true);
+  }
+  function zoomIn(){ const r=stageEl.getBoundingClientRect(); zoomAt(scale*1.3, r.width/2, r.height/2); }
+  function zoomOut(){ const r=stageEl.getBoundingClientRect(); zoomAt(scale/1.3, r.width/2, r.height/2); }
+  stageEl.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.map-marker'))return;
+    if(scale<=1.001)return;
+    dragging=true; dragMoved=0; startClientX=e.clientX; startClientY=e.clientY; startPanX=panX; startPanY=panY;
+    stageEl.classList.add('dragging'); stageEl.setPointerCapture(e.pointerId);
+  });
+  stageEl.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    const dx=e.clientX-startClientX, dy=e.clientY-startClientY;
+    dragMoved=Math.max(dragMoved,Math.hypot(dx,dy));
+    panX=startPanX+dx; panY=startPanY+dy;
+    clamp(); apply(false);
+  });
+  function endDrag(){
+    if(!dragging)return;
+    dragging=false; stageEl.classList.remove('dragging');
+    if(dragMoved>6){ suppressNextClick=true; }
+  }
+  stageEl.addEventListener('pointerup',endDrag);
+  stageEl.addEventListener('pointercancel',endDrag);
+  let suppressNextClick=false;
+  stageEl.addEventListener('click',e=>{
+    if(suppressNextClick){ e.stopPropagation(); e.preventDefault(); suppressNextClick=false; }
+  },true);
+  stageEl.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const r=stageEl.getBoundingClientRect();
+    zoomAt(scale*(e.deltaY<0?1.15:1/1.15), e.clientX-r.left, e.clientY-r.top);
+  },{passive:false});
+  window.addEventListener('resize',()=>{ if(document.getElementById('page3').classList.contains('active')){ measure(); clamp(); apply(false); } });
+  measure();
+  return {resetView,zoomToMarker,zoomIn,zoomOut};
+}
+const panZoom = makePanZoom($('mapStage'),$('mapPan'),$('mapZoom'),$('mapCanvasWrap'));
+
+function arcPath(fx,fy,tx,ty){
+  const FX=fx/100*2400, FY=fy/100*1350, TX=tx/100*2400, TY=ty/100*1350;
+  const mx=(FX+TX)/2, my=(FY+TY)/2 - 90;
+  return `M${FX},${FY} Q${mx},${my} ${TX},${TY}`;
+}
+function drawArc(i){
+  const pos=chain2Map[i];
+  const info=ACTORS[pos.actor];
+  const svgns='http://www.w3.org/2000/svg';
+  const path=document.createElementNS(svgns,'path');
+  path.setAttribute('class','trail-arc '+info.arc);
+  path.setAttribute('stroke-width', info.arc==='league'?'2':'3');
+  let d;
+  if(pos.actor==='us'){ d=arcPath(pos.x,pos.y,HOME.x,HOME.y); }          /* USA presses in on Japan */
+  else if(pos.actor==='league'){ d=arcPath(pos.x,pos.y,chain2Map[0].x,chain2Map[0].y); } /* Geneva's report aimed at Manchuria */
+  else { d=arcPath(HOME.x,HOME.y,pos.x,pos.y); }                          /* Japan projects outward from home */
+  path.setAttribute('d', d);
+  $('arcsLayer').appendChild(path);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>path.classList.add('lit')));
+}
+function openMapEvent(i){
+  if(i>mapProgress+1)return;
+  const ev=chain2[i];
+  const pos=chain2Map[i];
+  const info=ACTORS[pos.actor];
+  const shuffled=shuffle(ev.opts);
+  panZoom.zoomToMarker(pos.x,pos.y,2.3);
+  $('dateBanner').textContent=ev.year+' · '+ev.label;
+  $('dateBanner').classList.remove('pulse-update');void $('dateBanner').offsetWidth;$('dateBanner').classList.add('pulse-update');
+  const pipsHtml=chain2.map((_,k)=>`<span class="pip${k<=mapProgress?' pip-done':''}"></span>`).join('');
+  $('mapPopupContent').innerHTML=`
+    <div class="card-top"><span class="pill">Chain 2 · Link ${i+1} of ${chain2.length}</span><button class="close" id="mapPopupClose">×</button></div>
+    <div class="popup-pips">${pipsHtml}</div>
+    <h3>${ev.title}</h3>
+    <div class="year">${ev.label} · ${ev.year}</div>
+    <div class="map-photo"><img src="${info.photo}" alt="${info.label}"><div class="map-photo-text"><b>${info.label}</b><span>${info.photoCap}</span></div></div>
+    <div class="actionbox">${ev.action}</div>
+    <div class="leadsto"><b>This led to:</b> ${ev.leadsto}</div>
+    <div class="think"><h4>${ev.think}</h4><div class="opt-grid">${shuffled.map((s,j)=>`<button class="opt" data-j="${j}">${s.o[0]}</button>`).join('')}</div>
+    <div class="feedback" id="mapCardFeedback"></div></div>
+    <button class="nextbtn" id="mapCardNext">${i===chain2.length-1?'Close and see recap':(mapProgress>=i?'Close':'Reveal the next move →')}</button>
+  `;
+  document.querySelectorAll('#mapPopupContent .opt').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#mapPopupContent .opt').forEach(x=>x.classList.remove('selected','correct','wrong'));
+    const j=Number(b.dataset.j);
+    b.classList.add('selected', shuffled[j].o[1] ? 'correct' : 'wrong');
+    const fb=$('mapCardFeedback');fb.classList.add('show');
+    if(shuffled[j].o[1]){fb.innerHTML='<b>Strong reasoning.</b> That is exactly why this event mattered.';}
+    else{const correctText=shuffled.find(s=>s.o[1]).o[0];fb.innerHTML=`<b>Consider again.</b> ${correctText}`;}
+  }));
+  $('mapPopupClose').onclick=closeMapPopup;
+  $('mapBackdrop').onclick=closeMapOverlays;
+  $('mapCardNext').onclick=()=>{
+    closeMapPopup();
+    const firstTime = i>mapProgress;
+    if(firstTime){
+      setTimeout(()=>{
+        const btn=$('mk'+i);
+        btn.classList.add('done');btn.classList.remove('pulse');
+        drawArc(i);
+        if(pos.zone){const z=document.getElementById(pos.zone);if(z)z.setAttribute('fill','url(#stainG)');}
+        mapProgress=i;
+        if(i+1<chain2.length){
+          const next=$('mk'+(i+1));
+          next.classList.add('visible','pulse');
+        }
+        updateMeter(true,i+1,chain2.length);
+        if(i===chain2.length-1){showRecap(chain2,true)}
+      },200);
+    }
+  };
+  $('mapPopup').classList.add('show');$('mapBackdrop').classList.add('show');$('mapPopup').scrollTop=0;
+}
+function closeMapPopup(){$('mapPopup').classList.remove('show');$('mapBackdrop').classList.remove('show')}
+function closeMapOverlays(){
+  $('mapPopup').classList.remove('show');
+  $('mapIntro').classList.remove('show');
+  $('recap2').classList.remove('show');
+  $('mapBackdrop').classList.remove('show');
+}
+let mapIntroShown=false;
+$('mapBackdrop').onclick=closeMapOverlays;
+$('mapHelpBtn').addEventListener('click',()=>{ $('mapIntro').classList.add('show'); $('mapBackdrop').classList.add('show'); });
+$('mapIntroClose').addEventListener('click',closeMapOverlays);
+$('mapZoomInBtn').addEventListener('click',()=>panZoom.zoomIn());
+$('mapZoomOutBtn').addEventListener('click',()=>panZoom.zoomOut());
+$('mapResetBtn').addEventListener('click',()=>panZoom.resetView());
+
+function openCard(chain,i,isChain2){
+  const prefix=isChain2?'c2dom':'c1dom';
+  const dom=$(prefix+i);
+  if(dom.classList.contains('locked'))return;
+  const ev=chain[i];
+  const shuffled=shuffle(ev.opts);
+  $('cardContent').innerHTML=`
+    <div class="card-top"><span class="pill">${isChain2?'Chain 2':'Chain 1'} · Link ${i+1} of ${chain.length}</span><button class="close" id="cardClose">×</button></div>
+    <h3>${ev.title}</h3>
+    <div class="year">${ev.label} · ${ev.year}</div>
+    <div class="actionbox">${ev.action}</div>
+    <div class="leadsto"><b>This led to:</b> ${ev.leadsto}</div>
+    <div class="think"><h4>${ev.think}</h4><div class="opt-grid">${shuffled.map((s,j)=>`<button class="opt" data-j="${j}">${s.o[0]}</button>`).join('')}</div>
+    <div class="feedback" id="cardFeedback"></div></div>
+    <button class="nextbtn" id="cardNext">${i===chain.length-1?'Close and see recap':'Tip the next domino →'}</button>
+  `;
+  document.querySelectorAll('#cardContent .opt').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#cardContent .opt').forEach(x=>x.classList.remove('selected','correct','wrong'));
+    const j=Number(b.dataset.j);
+    b.classList.add('selected', shuffled[j].o[1] ? 'correct' : 'wrong');
+    const fb=$('cardFeedback');fb.classList.add('show');
+    if(shuffled[j].o[1]){fb.innerHTML='<b>Strong reasoning.</b> That is exactly why this event mattered.';}
+    else{const correctText=shuffled.find(s=>s.o[1]).o[0];fb.innerHTML=`<b>Consider again.</b> ${correctText}`;}
+  }));
+  $('cardClose').onclick=closeCard;
+  $('backdrop').onclick=closeCard;
+  $('cardNext').onclick=()=>{
+    closeCard();
+    setTimeout(()=>{
+      dom.classList.add('fallen');dom.classList.remove('locked','pulse');
+      const connId=(isChain2?'c2conn':'c1conn')+(i+1);
+      const conn=document.getElementById(connId);
+      if(conn)conn.classList.add('lit');
+      if(i+1<chain.length){
+        const next=$(prefix+(i+1));
+        next.classList.remove('locked');next.classList.add('pulse');
+      }
+      updateMeter(isChain2,i+1,chain.length);
+      if(isChain2)idx2=i;else idx1=i;
+      if(i===chain.length-1){
+        showRecap(chain,isChain2);
+      }
+    },200);
+  };
+  $('card').classList.add('show');$('backdrop').classList.add('show');$('card').scrollTop=0;
+}
+function closeCard(){$('card').classList.remove('show');$('backdrop').classList.remove('show')}
+
+function updateMeter(isChain2,done,total){
+  const pct=4+ (done/total)*92;
+  const fill=isChain2?$('meterFill2'):$('meterFill1');
+  const text=isChain2?$('tensionText2'):$('tensionText1');
+  fill.style.left=pct+'%';
+  const labels=isChain2?['Rising','Rising','Tense','High','Critical','Breaking point','War']:['Calm','Uneasy','Strained','Anxious','Hardening','Militant','Boiling over'];
+  text.textContent=labels[Math.min(done-1,labels.length-1)]||labels[0];
+}
+
+function showRecap(chain,isChain2){
+  const stripId=isChain2?'recapStrip2':'recapStrip1';
+  const strip=$(stripId);
+  strip.innerHTML=chain.map((ev,i)=>`<div class="recap-item"><b>${i+1}.</b> ${ev.label}</div>`+(i<chain.length-1?'<span class="recap-arrow">→</span>':'')).join('');
+  if(isChain2){
+    $('recap2').classList.add('show');
+    $('mapBackdrop').classList.add('show');
+  } else {
+    $('recap1').style.display='block';
+  }
+}
+
+$('beginBtn').addEventListener('click',()=>{$('hookBox').classList.add('revealed');setTimeout(()=>page('page2'),900)});
+$('toBridge').addEventListener('click',()=>page('pageBridge'));
+$('toChain2').addEventListener('click',()=>{
+  page('page3');
+  requestAnimationFrame(()=>panZoom.resetView());
+  if(!mapIntroShown){
+    mapIntroShown=true;
+    setTimeout(()=>{ $('mapIntro').classList.add('show'); $('mapBackdrop').classList.add('show'); },400);
+  }
+});
+$('toFinal').addEventListener('click',()=>{closeMapOverlays();buildFullRecap();buildMatch();page('page4')});
+
+/* ---------------- FINAL PAGE ---------------- */
+function buildFullRecap(){
+  const all=chain1.concat(chain2);
+  $('fullRecapStrip').innerHTML=all.map((ev,i)=>`<div class="recap-item"><b>${i+1}.</b> ${ev.label}</div>`+(i<all.length-1?'<span class="recap-arrow">→</span>':'')).join('');
+}
+document.querySelectorAll('.mode-tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.mode-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.mode-panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  $('mode-'+t.dataset.mode).classList.add('active');
+}));
+$('showModelBtn').addEventListener('click',()=>$('modelBox').classList.add('show'));
+
+const matchPairs=[
+ {cause:"Japan modernised fast after 1868",effect:"Japan had the military strength to build an empire"},
+ {cause:"The Washington Naval Treaty gave Japan a 3 ratio against 5 for the USA and Britain",effect:"Many Japanese felt disrespected and treated as inferior"},
+ {cause:"PM Inukai Tsuyoshi was assassinated in 1932",effect:"Civilian government gave the military more power"},
+ {cause:"The League of Nations condemned Japan but could not enforce sanctions",effect:"Japan felt free to invade China in 1937"},
+ {cause:"Western powers were distracted by war in Europe",effect:"Japan expanded into Southeast Asia with little resistance"},
+ {cause:"The USA imposed an oil, steel and iron embargo in 1940",effect:"Japan felt war was necessary to seize resources by force"}
+];
+function buildMatch(){
+  const causesBox=$('matchCauses'),effectsBox=$('matchEffects');
+  causesBox.innerHTML='';effectsBox.innerHTML='';
+  const shuffledEffects=matchPairs.map((p,i)=>({text:p.effect,i})).sort(()=>Math.random()-.5);
+  matchPairs.forEach((p,i)=>{
+    const b=document.createElement('button');b.className='match-card';b.textContent=p.cause;b.dataset.i=i;
+    b.addEventListener('click',()=>selectCause(b,i));
+    causesBox.appendChild(b);
+  });
+  shuffledEffects.forEach(e=>{
+    const b=document.createElement('button');b.className='match-card';b.textContent=e.text;b.dataset.i=e.i;
+    b.addEventListener('click',()=>selectEffect(b,e.i));
+    effectsBox.appendChild(b);
+  });
+  matchState={selectedCause:null,matched:new Set()};
+  $('matchStatus').textContent='0 of '+matchPairs.length+' matched';
+}
+let matchState={selectedCause:null,matched:new Set()};
+function selectCause(btn,i){
+  if(btn.classList.contains('correct'))return;
+  document.querySelectorAll('#matchCauses .match-card').forEach(b=>b.classList.remove('picked'));
+  btn.classList.add('picked');
+  matchState.selectedCause=i;
+}
+function selectEffect(btn,i){
+  if(btn.classList.contains('correct'))return;
+  if(matchState.selectedCause===null)return;
+  if(matchState.selectedCause===i){
+    btn.classList.add('correct');
+    document.querySelector(`#matchCauses .match-card[data-i="${i}"]`).classList.add('correct');
+    matchState.matched.add(i);
+    matchState.selectedCause=null;
+    $('matchStatus').textContent=matchState.matched.size+' of '+matchPairs.length+' matched';
+  }else{
+    btn.classList.add('wrong');
+    setTimeout(()=>btn.classList.remove('wrong'),450);
+  }
+}
+</script>
+</body>
+</html>
