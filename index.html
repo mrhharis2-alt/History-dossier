@@ -178,13 +178,23 @@
   }
 
   /* per case overlay position, as a % of the band it sits in */
-  #band1 .c1{ left: 3.5%; width: 37%; top: 57%; }
-  #band2 .c2{ left: 3.5%; width: 34.5%; top: 53%; }
-  #band2 .c3{ left: 40%;  width: 22.5%; top: 53%; }
-  #band3 .c4{ left: 3.5%; width: 29%;   top: 56%; }
-  #band3 .c5{ left: 34.5%; width: 27.5%; top: 56%; }
-  #band4 .c6{ left: 3.5%; width: 30%;  top: 60%; }
-  #band4 .c7{ left: 34.5%; width: 29%; top: 60%; }
+  /* every card shares one width; heights are equalised by the script at the bottom */
+  .dossier-band .case-card{ width: 31%; }
+  #band1 .c1{ left: 3.5%;  top: 57%; }
+  #band2 .c2{ left: 3.5%;  top: 53%; }
+  #band2 .c3{ left: 36.5%; top: 53%; }
+  #band3 .c4{ left: 3.5%;  top: 56%; }
+  #band3 .c5{ left: 36.5%; top: 56%; }
+  #band4 .c6{ left: 3.5%;  top: 60%; }
+  #band4 .c7{ left: 36.5%; top: 60%; }
+
+  /* identical inner layout: title and blurb on top, meta line pinned to the bottom */
+  .dossier-band .case-card .body{
+    display: flex; flex-direction: column; min-height: 150px;
+  }
+  .dossier-band .case-card .meta{ margin-top: auto; }
+  .dossier-band .case-card.pending .body{ min-height: 150px; }
+  .dossier-band .case-card.pending{ width: 31%; margin-top: 0; }
 
   .dossier-band .case-card.pending{
     cursor: default;
@@ -227,6 +237,20 @@
 
   @media (max-width: 640px){
     .case-card.pending{ width: 100%; }
+  }
+
+  /* phones: overlaying tiny cards on the artwork cuts off text, so stack them under each image */
+  @media (max-width: 640px){
+    .dossier-band{ display: flex; flex-direction: column; gap: 26px; line-height: normal; }
+    .dossier-band .case-card{
+      position: static !important; width: 100% !important; left: auto !important; top: auto !important;
+      margin: 0 !important;
+    }
+    .dossier-band .case-card:first-of-type{ margin-top: 10px !important; }
+    .case-card h3{ font-size: 1.02rem; }
+    .case-card p{ font-size: 0.85rem; line-height: 1.45; margin-bottom: 12px; }
+    .case-card .body{ padding: 22px 18px 16px; }
+    .case-card .tab{ font-size: 0.68rem; padding: 5px 11px 8px; top: -16px; }
   }
 </style>
 </head>
@@ -314,8 +338,8 @@
       <a class="case-card c6" href="lessons/cold-war.html">
         <span class="tab">Case 06</span>
         <span class="body">
-          <h3>Superpowers Face Off</h3>
-          <p>Explore the tensions between the USA and the Soviet Union after 1945.</p>
+          <h3>Who Divided Europe?</h3>
+          <p>Follow the actions and reactions behind six developments, then judge who was most responsible for dividing Europe.</p>
           <span class="meta"><span>Interactive map</span><span>&#8594;</span></span>
         </span>
       </a>
@@ -336,5 +360,21 @@
 
 </div>
 
+<script>
+/* Give every case card the same height (the tallest one), at any screen width. */
+(function(){
+  function equalise(){
+    var bodies=[].slice.call(document.querySelectorAll('.dossier-band .case-card .body'));
+    bodies.forEach(function(b){ b.style.height=''; });
+    var h=0;
+    bodies.forEach(function(b){ h=Math.max(h,b.offsetHeight); });
+    bodies.forEach(function(b){ b.style.height=h+'px'; });
+  }
+  window.addEventListener('load',equalise);
+  window.addEventListener('resize',equalise);
+  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(equalise); }
+  equalise();
+})();
+</script>
 </body>
 </html>
